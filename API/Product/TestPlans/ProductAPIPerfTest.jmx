@@ -2667,37 +2667,37 @@ sampler.getHeaderManager().add(new Header(&quot;Authorization&quot;,&quot;Bearer
             </elementProp>
             <elementProp name="ProductCodesCSVFile" elementType="Argument">
               <stringProp name="Argument.name">ProductCodesCSVFile</stringProp>
-              <stringProp name="Argument.value">${__P(ProductCodesCSVFile,D:\Git\API_Product\JMeterTests\Tests\Productcodes.csv)}</stringProp>
+              <stringProp name="Argument.value">${__P(ProductCodesCSVFile,..\Resources\Productcodes.csv)}</stringProp>
               <stringProp name="Argument.metadata">=</stringProp>
             </elementProp>
             <elementProp name="BidContractReferenceNumbersCSVFile" elementType="Argument">
               <stringProp name="Argument.name">BidContractReferenceNumbersCSVFile</stringProp>
-              <stringProp name="Argument.value">${__P(BidContractReferenceNumbersCSVFile,D:\Git\API_Product\JMeterTests\Tests\BidContractReferenceNumbers.csv)}</stringProp>
+              <stringProp name="Argument.value">${__P(BidContractReferenceNumbersCSVFile,..\Resources\BidContractReferenceNumbers.csv)}</stringProp>
               <stringProp name="Argument.metadata">=</stringProp>
             </elementProp>
             <elementProp name="CanadaProductCodesCSVFile" elementType="Argument">
               <stringProp name="Argument.name">CanadaProductCodesCSVFile</stringProp>
-              <stringProp name="Argument.value">${__P(CanadaProductCodesCSVFile,D:\Git\API_Product\JMeterTests\Tests\CanadaProductCodes.csv)}</stringProp>
+              <stringProp name="Argument.value">${__P(CanadaProductCodesCSVFile,..\Resources\CanadaProductCodes.csv)}</stringProp>
               <stringProp name="Argument.metadata">=</stringProp>
             </elementProp>
             <elementProp name="DiscontinuedProductCodesCSVFile" elementType="Argument">
               <stringProp name="Argument.name">DiscontinuedProductCodesCSVFile</stringProp>
-              <stringProp name="Argument.value">${__P(DiscontinuedProductCodesCSVFile,D:\Git\API_Product\JMeterTests\Tests\DiscontinuedProductCodes.csv)}</stringProp>
+              <stringProp name="Argument.value">${__P(DiscontinuedProductCodesCSVFile,..\Resources\DiscontinuedProductCodes.csv)}</stringProp>
               <stringProp name="Argument.metadata">=</stringProp>
             </elementProp>
             <elementProp name="ManufactureCodesCSVFile" elementType="Argument">
               <stringProp name="Argument.name">ManufactureCodesCSVFile</stringProp>
-              <stringProp name="Argument.value">${__P(ManufactureCodesCSVFile,D:\Git\API_Product\JMeterTests\Tests\ManufactureCodes.csv)}</stringProp>
+              <stringProp name="Argument.value">${__P(ManufactureCodesCSVFile,..\Resources\ManufactureCodes.csv)}</stringProp>
               <stringProp name="Argument.metadata">=</stringProp>
             </elementProp>
             <elementProp name="Top100DEVSearchProductCodesCSVFile" elementType="Argument">
               <stringProp name="Argument.name">Top100DEVSearchProductCodesCSVFile</stringProp>
-              <stringProp name="Argument.value">${__P(Top100DEVSearchProductCodesCSVFile,D:\Git\API_Product\JMeterTests\Tests\Top100DEVSearchProductCodes.csv)}</stringProp>
+              <stringProp name="Argument.value">${__P(Top100DEVSearchProductCodesCSVFile,..\Resources\Top100DEVSearchProductCodes.csv)}</stringProp>
               <stringProp name="Argument.metadata">=</stringProp>
             </elementProp>
             <elementProp name="ProductcodesWithReviewscsv" elementType="Argument">
               <stringProp name="Argument.name">ProductcodesWithReviewscsv</stringProp>
-              <stringProp name="Argument.value">${__P(ProductcodesWithReviewscsv,D:\Git\API_Product\JMeterTests\Tests\ProductcodesWithReviews.csv)}</stringProp>
+              <stringProp name="Argument.value">${__P(ProductcodesWithReviewscsv,..\Resources\ProductcodesWithReviews.csv)}</stringProp>
               <stringProp name="Argument.metadata">=</stringProp>
             </elementProp>
           </collectionProp>
