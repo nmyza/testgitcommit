@@ -21,4 +21,4 @@ del -f %resultsFile%
 del -f %resultsFileSummary%
 
 call jmeter.bat -JPROTOCOL=https -JBASE_URL=%baseUrl% -JVersionNumber=%versionNumber% -JRESULTS_FILE=%resultsFile% -JProductCodesCSVFile=%ProductcodesCsvFile% -JBidContractReferenceNumbersCSVFile=%BidContractReferenceNumbersCSVFile%  -JCanadaProductCodesCSVFile=%CanadaProductCodesCSVFile% -JDiscontinuedProductCodesCSVFile=%DiscontinuedProductCodesCSVFile% -JPRODUCTCODES_CSVFILE=%ProductcodesCsvFile% -JManufactureCodesCSVFile=%ManufactureCodesCSVFile% -JTop100DEVSearchProductCodesCSVFile=%Top100DEVSearchProductCodesCSVFile% -JProductcodesWithReviewscsv=%ProductcodesWithReviewscsv% -JRAMPUP=%rampup% -JTHREADS=%threads%  -JLOOP=%loop% -n -t %testPlanFile%
-rem call JMeterPluginsCMD.bat --generate-csv %resultsFileSummary% --input-jtl %resultsFile% --plugin-type AggregateReport
+call JMeterPluginsCMD.bat --generate-csv %resultsFileSummary% --input-jtl %resultsFile% --plugin-type AggregateReport
