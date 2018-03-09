@@ -5,16 +5,16 @@ set resultsFile=%2
 set resultsFileSummary=%3
 set baseUrl=%4
 set versionNumber = %5
-set ProductCodesCSVFile = %6
-set BidContractReferenceNumbersCSVFile = %7
-set CanadaProductCodesCSVFile = %8
-set DiscontinuedProductCodesCSVFile = %9
-set ManufactureCodesCSVFile = %10
-set Top100DEVSearchProductCodesCSVFile = %11
-set ProductcodesWithReviewscsv = %12
-set rampup = %13
-set threads =%14
-set loop = %15
+set rampup = %6
+set threads =%7
+set loop = %8
+set ProductCodesCSVFile = %9
+set BidContractReferenceNumbersCSVFile = %10
+set CanadaProductCodesCSVFile = %11
+set DiscontinuedProductCodesCSVFile = %12
+set ManufactureCodesCSVFile = %13
+set Top100DEVSearchProductCodesCSVFile = %14
+set ProductcodesWithReviewscsv = %15
 
 
 del -f %resultsFile%
