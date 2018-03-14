@@ -146,6 +146,145 @@ sampler.getHeaderManager().add(new Header(&quot;Authorization&quot;,&quot;Basic 
             <boolProp name="recycle">true</boolProp>
             <stringProp name="shareMode">shareMode.all</stringProp>
             <boolProp name="stopThread">false</boolProp>
+            <stringProp name="variableNames">Productcode,version</stringProp>
+          </CSVDataSet>
+          <hashTree/>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="49586">200</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+          </ResponseAssertion>
+          <hashTree/>
+          <BeanShellPreProcessor guiclass="TestBeanGUI" testclass="BeanShellPreProcessor" testname="BeanShell PreProcessor" enabled="true">
+            <stringProp name="filename"></stringProp>
+            <stringProp name="parameters"></stringProp>
+            <boolProp name="resetInterpreter">false</boolProp>
+            <stringProp name="script">import org.apache.jmeter.protocol.http.control.Header;
+
+sampler.getHeaderManager().remove(1);
+sampler.getHeaderManager().add(new Header(&quot;Authorization&quot;,&quot;Bearer &quot; + vars.get(&quot;authToken&quot;)));</stringProp>
+          </BeanShellPreProcessor>
+          <hashTree/>
+        </hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GerRecommendation" enabled="true">
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="productCode" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">${Recommendededcs}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+                <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                <stringProp name="Argument.name">productCode</stringProp>
+              </elementProp>
+              <elementProp name="companyCode" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">01</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+                <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                <stringProp name="Argument.name">companyCode</stringProp>
+              </elementProp>
+              <elementProp name="recommendedType" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">Warranty</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+                <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                <stringProp name="Argument.name">recommendedType</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain"></stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.protocol"></stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">/${VersionNumber}/products/GetRecommendation</stringProp>
+          <stringProp name="HTTPSampler.method">GET</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSV Data Set Config" enabled="true">
+            <stringProp name="delimiter">,</stringProp>
+            <stringProp name="fileEncoding"></stringProp>
+            <stringProp name="filename">${RecommendedProductCodescsv}</stringProp>
+            <boolProp name="ignoreFirstLine">true</boolProp>
+            <boolProp name="quotedData">false</boolProp>
+            <boolProp name="recycle">false</boolProp>
+            <stringProp name="shareMode">shareMode.all</stringProp>
+            <boolProp name="stopThread">true</boolProp>
+            <stringProp name="variableNames">Recommendededcs,version</stringProp>
+          </CSVDataSet>
+          <hashTree/>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="49586">200</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+          </ResponseAssertion>
+          <hashTree/>
+          <BeanShellPreProcessor guiclass="TestBeanGUI" testclass="BeanShellPreProcessor" testname="BeanShell PreProcessor" enabled="true">
+            <stringProp name="filename"></stringProp>
+            <stringProp name="parameters"></stringProp>
+            <boolProp name="resetInterpreter">false</boolProp>
+            <stringProp name="script">import org.apache.jmeter.protocol.http.control.Header;
+
+sampler.getHeaderManager().remove(1);
+sampler.getHeaderManager().add(new Header(&quot;Authorization&quot;,&quot;Bearer &quot; + vars.get(&quot;authToken&quot;)));</stringProp>
+          </BeanShellPreProcessor>
+          <hashTree/>
+        </hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GetRecommendationSettings" enabled="true">
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="userId" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">${UserId}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+                <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                <stringProp name="Argument.name">userId</stringProp>
+              </elementProp>
+              <elementProp name="organizationCode" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">${OrganizationCode}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+                <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                <stringProp name="Argument.name">organizationCode</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain"></stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.protocol"></stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">/${VersionNumber}/Products/RecommendationSettings</stringProp>
+          <stringProp name="HTTPSampler.method">GET</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSV Data Set Config" enabled="true">
+            <stringProp name="delimiter">,</stringProp>
+            <stringProp name="fileEncoding"></stringProp>
+            <stringProp name="filename">..\Resources\Users.csv</stringProp>
+            <boolProp name="ignoreFirstLine">false</boolProp>
+            <boolProp name="quotedData">false</boolProp>
+            <boolProp name="recycle">true</boolProp>
+            <stringProp name="shareMode">shareMode.all</stringProp>
+            <boolProp name="stopThread">false</boolProp>
             <stringProp name="variableNames"></stringProp>
           </CSVDataSet>
           <hashTree/>
@@ -2593,117 +2732,122 @@ sampler.getHeaderManager().add(new Header(&quot;Authorization&quot;,&quot;Bearer
           <stringProp name="filename"></stringProp>
         </ResultCollector>
         <hashTree/>
-        <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
-          <collectionProp name="Arguments.arguments">
-            <elementProp name="VersionNumber" elementType="Argument">
-              <stringProp name="Argument.name">VersionNumber</stringProp>
-              <stringProp name="Argument.value">${__P(VersionNumber,v4.0)}</stringProp>
-              <stringProp name="Argument.metadata">=</stringProp>
-            </elementProp>
-            <elementProp name="BASE_URL" elementType="Argument">
-              <stringProp name="Argument.name">BASE_URL</stringProp>
-              <stringProp name="Argument.value">${__P(BASE_URL,rest-dev-external.corp.cdw.com)}</stringProp>
-              <stringProp name="Argument.metadata">=</stringProp>
-            </elementProp>
-            <elementProp name="Protocol" elementType="Argument">
-              <stringProp name="Argument.name">Protocol</stringProp>
-              <stringProp name="Argument.value">${__P(PROTOCOL,https)}</stringProp>
-              <stringProp name="Argument.metadata">=</stringProp>
-            </elementProp>
-            <elementProp name="CompanyCode" elementType="Argument">
-              <stringProp name="Argument.name">CompanyCode</stringProp>
-              <stringProp name="Argument.value">${__P(CompanyCode,01)}</stringProp>
-              <stringProp name="Argument.metadata">=</stringProp>
-            </elementProp>
-            <elementProp name="CompanyId" elementType="Argument">
-              <stringProp name="Argument.name">CompanyId</stringProp>
-              <stringProp name="Argument.value">${__P(CompanyId,1000)}</stringProp>
-              <stringProp name="Argument.metadata">=</stringProp>
-            </elementProp>
-            <elementProp name="100ProductCodes" elementType="Argument">
-              <stringProp name="Argument.name">100ProductCodes</stringProp>
-              <stringProp name="Argument.value">4599877,4648174,4763191,3912974,4899589,3834848,4462375,4647945,4512969,4512976,4648179,4483693,3912999,4484286,4008896,4728949,4427231,3548660,4439285,4648034,4648176,4427265,4512979,4648181,4483685,4464613,3912992,4884205,4648180,4608803,4609625,4605825,3927382,4648020,4464593,4532669,4421031,4464618,3912972,4462437,4603042,4648175,4882741,4559083,4462338,4463363,4648186,4718368,4168571,4728955,4457404,4457458,4648185,3718271,3741770,4481528,4769610,4489969,4605827,4599454,3912968,4462126,4457405,4512966,4603078,4763195,4499622,4013098,4743833,4647957,4457433,4457461,4483688,4462456,4436075,4491313,4648007,4351994,4557224,4424112,4534772,3900657,4648884,4461159,4462423,3958126,4506453,4033654,4648036,4276102,4607907,4647958,4605813,4462413,3927476,4647962,4072705,4559176,4648173,4457462</stringProp>
-              <stringProp name="Argument.metadata">=</stringProp>
-            </elementProp>
-            <elementProp name="100DEVProductcodes" elementType="Argument">
-              <stringProp name="Argument.name">100DEVProductcodes</stringProp>
-              <stringProp name="Argument.value">4168571,4548891,3912974,3980174,3912999,3980383,4355350,4359112,3980439,3890865,3912992,3834848,3978733,3927382,3987573,4099755,3980391,3960058,3718271,3912968,4360189,3980177,3953687,3518997,4422376,4276102,4023161,4359062,4382172,4005923,3980394,4355379,4453072,4359050,3845307,4194435,4462381,4033754,4033745,4378010,3978283,4005867,3927476,3937054,3980109,3872746,4359093,4300028,3908907,3970327,3970767,4196221,4486371,4464623,4355343,3890833,4095924,4008896,3958094,4492493,3980387,3912972,3980178,3912874,3980586,3980449,4013338,3902931,3980136,4462375,3912915,3912979,4340796,4355368,3890879,3980061,3845109,4007589,4403155,4355375,4004763,3845120,4013321,3290597,4377894,3980368,4119421,4300044,4276096,3887172,4072755,4133294,4005882,3980382,4121400,4494869,4441805,4013318,4349210,4468001</stringProp>
-              <stringProp name="Argument.metadata">=</stringProp>
-            </elementProp>
-            <elementProp name="72DEVProductcodes" elementType="Argument">
-              <stringProp name="Argument.name">72DEVProductcodes</stringProp>
-              <stringProp name="Argument.value">4168571,4548891,3912974,3980174,3912999,3980383,4355350,4359112,3980439,3890865,3912992,3834848,3978733,3927382,3987573,4099755,3980391,3960058,3718271,3912968,4360189,3980177,3953687,3518997,4422376,4276102,4023161,4359062,4382172,4005923,3980394,4355379,4453072,4359050,3845307,4194435,4462381,4033754,4033745,4378010,3978283,4005867,3927476,3937054,3980109,3872746,4359093,4300028,3908907,3970327,3970767,4196221,4486371,4464623,4355343,3890833,4095924,4008896,3958094,4492493,3980387,3912972,3980178,3912874,3980586,3980449,4013338,3902931,3980136,4462375,3912915,3912979</stringProp>
-              <stringProp name="Argument.metadata">=</stringProp>
-            </elementProp>
-            <elementProp name="25DEVProductcodes" elementType="Argument">
-              <stringProp name="Argument.name">25DEVProductcodes</stringProp>
-              <stringProp name="Argument.value">4168571,4548891,3912974,3980174,3912999,3980383,4355350,4359112,3980439,3890865,3912992,3834848,3978733,3927382,3987573,4099755,3980391,3960058,3718271,3912968,4360189,3980177,3953687,3518997,4422376</stringProp>
-              <stringProp name="Argument.metadata">=</stringProp>
-            </elementProp>
-            <elementProp name="10DEVProductcodes" elementType="Argument">
-              <stringProp name="Argument.name">10DEVProductcodes</stringProp>
-              <stringProp name="Argument.value">4168571,4548891,3912974,3980174,3912999,3980383,4355350,4359112,3980439,3890865</stringProp>
-              <stringProp name="Argument.metadata">=</stringProp>
-            </elementProp>
-            <elementProp name="LOOP" elementType="Argument">
-              <stringProp name="Argument.name">LOOP</stringProp>
-              <stringProp name="Argument.value">${__P(LOOP,1)}</stringProp>
-              <stringProp name="Argument.metadata">=</stringProp>
-            </elementProp>
-            <elementProp name="RAMPUP" elementType="Argument">
-              <stringProp name="Argument.name">RAMPUP</stringProp>
-              <stringProp name="Argument.value">${__P(RAMPUP,1)}</stringProp>
-              <stringProp name="Argument.metadata">=</stringProp>
-            </elementProp>
-            <elementProp name="THREADS" elementType="Argument">
-              <stringProp name="Argument.name">THREADS</stringProp>
-              <stringProp name="Argument.value">${__P(THREADS,1)}</stringProp>
-              <stringProp name="Argument.metadata">=</stringProp>
-            </elementProp>
-            <elementProp name="RESULTS_FILE" elementType="Argument">
-              <stringProp name="Argument.name">RESULTS_FILE</stringProp>
-              <stringProp name="Argument.value">${__P(RESULTS_FILE,)}</stringProp>
-              <stringProp name="Argument.metadata">=</stringProp>
-            </elementProp>
-            <elementProp name="ProductCodesCSVFile" elementType="Argument">
-              <stringProp name="Argument.name">ProductCodesCSVFile</stringProp>
-              <stringProp name="Argument.value">${__P(ProductCodesCSVFile,..\Resources\Productcodes.csv)}</stringProp>
-              <stringProp name="Argument.metadata">=</stringProp>
-            </elementProp>
-            <elementProp name="BidContractReferenceNumbersCSVFile" elementType="Argument">
-              <stringProp name="Argument.name">BidContractReferenceNumbersCSVFile</stringProp>
-              <stringProp name="Argument.value">${__P(BidContractReferenceNumbersCSVFile,..\Resources\BidContractReferenceNumbers.csv)}</stringProp>
-              <stringProp name="Argument.metadata">=</stringProp>
-            </elementProp>
-            <elementProp name="CanadaProductCodesCSVFile" elementType="Argument">
-              <stringProp name="Argument.name">CanadaProductCodesCSVFile</stringProp>
-              <stringProp name="Argument.value">${__P(CanadaProductCodesCSVFile,..\Resources\CanadaProductCodes.csv)}</stringProp>
-              <stringProp name="Argument.metadata">=</stringProp>
-            </elementProp>
-            <elementProp name="DiscontinuedProductCodesCSVFile" elementType="Argument">
-              <stringProp name="Argument.name">DiscontinuedProductCodesCSVFile</stringProp>
-              <stringProp name="Argument.value">${__P(DiscontinuedProductCodesCSVFile,..\Resources\DiscontinuedProductCodes.csv)}</stringProp>
-              <stringProp name="Argument.metadata">=</stringProp>
-            </elementProp>
-            <elementProp name="ManufactureCodesCSVFile" elementType="Argument">
-              <stringProp name="Argument.name">ManufactureCodesCSVFile</stringProp>
-              <stringProp name="Argument.value">${__P(ManufactureCodesCSVFile,..\Resources\ManufactureCodes.csv)}</stringProp>
-              <stringProp name="Argument.metadata">=</stringProp>
-            </elementProp>
-            <elementProp name="Top100DEVSearchProductCodesCSVFile" elementType="Argument">
-              <stringProp name="Argument.name">Top100DEVSearchProductCodesCSVFile</stringProp>
-              <stringProp name="Argument.value">${__P(Top100DEVSearchProductCodesCSVFile,..\Resources\Top100DEVSearchProductCodes.csv)}</stringProp>
-              <stringProp name="Argument.metadata">=</stringProp>
-            </elementProp>
-            <elementProp name="ProductcodesWithReviewscsv" elementType="Argument">
-              <stringProp name="Argument.name">ProductcodesWithReviewscsv</stringProp>
-              <stringProp name="Argument.value">${__P(ProductcodesWithReviewscsv,..\Resources\ProductcodesWithReviews.csv)}</stringProp>
-              <stringProp name="Argument.metadata">=</stringProp>
-            </elementProp>
-          </collectionProp>
-        </Arguments>
-        <hashTree/>
       </hashTree>
+      <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+        <collectionProp name="Arguments.arguments">
+          <elementProp name="VersionNumber" elementType="Argument">
+            <stringProp name="Argument.name">VersionNumber</stringProp>
+            <stringProp name="Argument.value">${__P(VersionNumber,v4.1)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="BASE_URL" elementType="Argument">
+            <stringProp name="Argument.name">BASE_URL</stringProp>
+            <stringProp name="Argument.value">${__P(BASE_URL,rest-dev-external.corp.cdw.com)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="Protocol" elementType="Argument">
+            <stringProp name="Argument.name">Protocol</stringProp>
+            <stringProp name="Argument.value">${__P(PROTOCOL,https)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="CompanyCode" elementType="Argument">
+            <stringProp name="Argument.name">CompanyCode</stringProp>
+            <stringProp name="Argument.value">${__P(CompanyCode,01)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="CompanyId" elementType="Argument">
+            <stringProp name="Argument.name">CompanyId</stringProp>
+            <stringProp name="Argument.value">${__P(CompanyId,1000)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="100ProductCodes" elementType="Argument">
+            <stringProp name="Argument.name">100ProductCodes</stringProp>
+            <stringProp name="Argument.value">4599877,4648174,4763191,3912974,4899589,3834848,4462375,4647945,4512969,4512976,4648179,4483693,3912999,4484286,4008896,4728949,4427231,3548660,4439285,4648034,4648176,4427265,4512979,4648181,4483685,4464613,3912992,4884205,4648180,4608803,4609625,4605825,3927382,4648020,4464593,4532669,4421031,4464618,3912972,4462437,4603042,4648175,4882741,4559083,4462338,4463363,4648186,4718368,4168571,4728955,4457404,4457458,4648185,3718271,3741770,4481528,4769610,4489969,4605827,4599454,3912968,4462126,4457405,4512966,4603078,4763195,4499622,4013098,4743833,4647957,4457433,4457461,4483688,4462456,4436075,4491313,4648007,4351994,4557224,4424112,4534772,3900657,4648884,4461159,4462423,3958126,4506453,4033654,4648036,4276102,4607907,4647958,4605813,4462413,3927476,4647962,4072705,4559176,4648173,4457462</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="100DEVProductcodes" elementType="Argument">
+            <stringProp name="Argument.name">100DEVProductcodes</stringProp>
+            <stringProp name="Argument.value">4168571,4548891,3912974,3980174,3912999,3980383,4355350,4359112,3980439,3890865,3912992,3834848,3978733,3927382,3987573,4099755,3980391,3960058,3718271,3912968,4360189,3980177,3953687,3518997,4422376,4276102,4023161,4359062,4382172,4005923,3980394,4355379,4453072,4359050,3845307,4194435,4462381,4033754,4033745,4378010,3978283,4005867,3927476,3937054,3980109,3872746,4359093,4300028,3908907,3970327,3970767,4196221,4486371,4464623,4355343,3890833,4095924,4008896,3958094,4492493,3980387,3912972,3980178,3912874,3980586,3980449,4013338,3902931,3980136,4462375,3912915,3912979,4340796,4355368,3890879,3980061,3845109,4007589,4403155,4355375,4004763,3845120,4013321,3290597,4377894,3980368,4119421,4300044,4276096,3887172,4072755,4133294,4005882,3980382,4121400,4494869,4441805,4013318,4349210,4468001</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="72DEVProductcodes" elementType="Argument">
+            <stringProp name="Argument.name">72DEVProductcodes</stringProp>
+            <stringProp name="Argument.value">4168571,4548891,3912974,3980174,3912999,3980383,4355350,4359112,3980439,3890865,3912992,3834848,3978733,3927382,3987573,4099755,3980391,3960058,3718271,3912968,4360189,3980177,3953687,3518997,4422376,4276102,4023161,4359062,4382172,4005923,3980394,4355379,4453072,4359050,3845307,4194435,4462381,4033754,4033745,4378010,3978283,4005867,3927476,3937054,3980109,3872746,4359093,4300028,3908907,3970327,3970767,4196221,4486371,4464623,4355343,3890833,4095924,4008896,3958094,4492493,3980387,3912972,3980178,3912874,3980586,3980449,4013338,3902931,3980136,4462375,3912915,3912979</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="25DEVProductcodes" elementType="Argument">
+            <stringProp name="Argument.name">25DEVProductcodes</stringProp>
+            <stringProp name="Argument.value">4168571,4548891,3912974,3980174,3912999,3980383,4355350,4359112,3980439,3890865,3912992,3834848,3978733,3927382,3987573,4099755,3980391,3960058,3718271,3912968,4360189,3980177,3953687,3518997,4422376</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="10DEVProductcodes" elementType="Argument">
+            <stringProp name="Argument.name">10DEVProductcodes</stringProp>
+            <stringProp name="Argument.value">4168571,4548891,3912974,3980174,3912999,3980383,4355350,4359112,3980439,3890865</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="LOOP" elementType="Argument">
+            <stringProp name="Argument.name">LOOP</stringProp>
+            <stringProp name="Argument.value">${__P(LOOP,50)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="RAMPUP" elementType="Argument">
+            <stringProp name="Argument.name">RAMPUP</stringProp>
+            <stringProp name="Argument.value">${__P(RAMPUP,50)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="THREADS" elementType="Argument">
+            <stringProp name="Argument.name">THREADS</stringProp>
+            <stringProp name="Argument.value">${__P(THREADS,100)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="RESULTS_FILE" elementType="Argument">
+            <stringProp name="Argument.name">RESULTS_FILE</stringProp>
+            <stringProp name="Argument.value">${__P(RESULTS_FILE,)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="ProductCodesCSVFile" elementType="Argument">
+            <stringProp name="Argument.name">ProductCodesCSVFile</stringProp>
+            <stringProp name="Argument.value">${__P(ProductCodesCSVFile,..\Resources\Productcodes.csv)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="BidContractReferenceNumbersCSVFile" elementType="Argument">
+            <stringProp name="Argument.name">BidContractReferenceNumbersCSVFile</stringProp>
+            <stringProp name="Argument.value">${__P(BidContractReferenceNumbersCSVFile,..\Resources\BidContractReferenceNumbers.csv)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="CanadaProductCodesCSVFile" elementType="Argument">
+            <stringProp name="Argument.name">CanadaProductCodesCSVFile</stringProp>
+            <stringProp name="Argument.value">${__P(CanadaProductCodesCSVFile,..\Resources\CanadaProductCodes.csv)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="DiscontinuedProductCodesCSVFile" elementType="Argument">
+            <stringProp name="Argument.name">DiscontinuedProductCodesCSVFile</stringProp>
+            <stringProp name="Argument.value">${__P(DiscontinuedProductCodesCSVFile,..\Resources\DiscontinuedProductCodes.csv)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="ManufactureCodesCSVFile" elementType="Argument">
+            <stringProp name="Argument.name">ManufactureCodesCSVFile</stringProp>
+            <stringProp name="Argument.value">${__P(ManufactureCodesCSVFile,..\Resources\ManufactureCodes.csv)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="Top100DEVSearchProductCodesCSVFile" elementType="Argument">
+            <stringProp name="Argument.name">Top100DEVSearchProductCodesCSVFile</stringProp>
+            <stringProp name="Argument.value">${__P(Top100DEVSearchProductCodesCSVFile,..\Resources\Top100DEVSearchProductCodes.csv)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="ProductcodesWithReviewscsv" elementType="Argument">
+            <stringProp name="Argument.name">ProductcodesWithReviewscsv</stringProp>
+            <stringProp name="Argument.value">${__P(ProductcodesWithReviewscsv,..\Resources\ProductcodesWithReviews.csv)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="RecommendedProductCodescsv" elementType="Argument">
+            <stringProp name="Argument.name">RecommendedProductCodescsv</stringProp>
+            <stringProp name="Argument.value">${__P(RecommendedProductCodescsv,..\Resources\RecommendedProductCodes.csv)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+        </collectionProp>
+      </Arguments>
+      <hashTree/>
       <kg.apc.jmeter.threads.SteppingThreadGroup guiclass="kg.apc.jmeter.threads.SteppingThreadGroupGui" testclass="kg.apc.jmeter.threads.SteppingThreadGroup" testname="Product API Stepping Thread Group" enabled="false">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <stringProp name="ThreadGroup.num_threads">50</stringProp>
