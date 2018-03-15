@@ -1,0 +1,1695 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jmeterTestPlan version="1.2" properties="3.2" jmeter="3.3 r1808647">
+  <hashTree>
+    <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="Test Plan" enabled="true">
+      <stringProp name="TestPlan.comments"></stringProp>
+      <boolProp name="TestPlan.functional_mode">true</boolProp>
+      <boolProp name="TestPlan.serialize_threadgroups">false</boolProp>
+      <elementProp name="TestPlan.user_defined_variables" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+        <collectionProp name="Arguments.arguments"/>
+      </elementProp>
+      <stringProp name="TestPlan.user_define_classpath"></stringProp>
+    </TestPlan>
+    <hashTree>
+      <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager" enabled="true">
+        <collectionProp name="HeaderManager.headers">
+          <elementProp name="" elementType="Header">
+            <stringProp name="Header.name">Content-Type</stringProp>
+            <stringProp name="Header.value">application/json</stringProp>
+          </elementProp>
+          <elementProp name="" elementType="Header">
+            <stringProp name="Header.name">User-Agent</stringProp>
+            <stringProp name="Header.value">PriceAPILoadTest</stringProp>
+          </elementProp>
+        </collectionProp>
+      </HeaderManager>
+      <hashTree/>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Price API" enabled="true">
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+          <stringProp name="LoopController.loops">${LOOP}</stringProp>
+        </elementProp>
+        <stringProp name="ThreadGroup.num_threads">${THREADS}</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">${RAMPUP}</stringProp>
+        <longProp name="ThreadGroup.start_time">1504618563000</longProp>
+        <longProp name="ThreadGroup.end_time">1504618563000</longProp>
+        <boolProp name="ThreadGroup.scheduler">false</boolProp>
+        <stringProp name="ThreadGroup.duration"></stringProp>
+        <stringProp name="ThreadGroup.delay"></stringProp>
+      </ThreadGroup>
+      <hashTree>
+        <ConfigTestElement guiclass="HttpDefaultsGui" testclass="ConfigTestElement" testname="HTTP Request Defaults" enabled="true">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value"></stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain">${BASE_URL}</stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.protocol">${Protocol}</stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path"></stringProp>
+          <stringProp name="HTTPSampler.concurrentPool">6</stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+        </ConfigTestElement>
+        <hashTree/>
+        <IfController guiclass="IfControllerPanel" testclass="IfController" testname="If Controller" enabled="true">
+          <stringProp name="IfController.condition">&quot;${authToken}&quot; == &quot;\${authToken}&quot;</stringProp>
+          <boolProp name="IfController.evaluateAll">false</boolProp>
+          <stringProp name="TestPlan.comments">Gets The Token only when it&apos;s not avaialable</stringProp>
+        </IfController>
+        <hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Token Endpoint" enabled="true">
+            <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">grant_type=client_credentials</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp name="HTTPSampler.path">/${VersionNumber}/price/token</stringProp>
+            <stringProp name="HTTPSampler.method">POST</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor" enabled="true">
+              <stringProp name="JSONPostProcessor.referenceNames">authToken</stringProp>
+              <stringProp name="JSONPostProcessor.jsonPathExprs">$..access_token</stringProp>
+              <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
+              <stringProp name="Scope.variable">token</stringProp>
+            </JSONPostProcessor>
+            <hashTree/>
+            <DebugPostProcessor guiclass="TestBeanGUI" testclass="DebugPostProcessor" testname="Debug PostProcessor" enabled="true">
+              <boolProp name="displayJMeterProperties">false</boolProp>
+              <boolProp name="displayJMeterVariables">true</boolProp>
+              <boolProp name="displaySamplerProperties">true</boolProp>
+              <boolProp name="displaySystemProperties">false</boolProp>
+            </DebugPostProcessor>
+            <hashTree/>
+            <BeanShellPreProcessor guiclass="TestBeanGUI" testclass="BeanShellPreProcessor" testname="BeanShell PreProcessor" enabled="true">
+              <boolProp name="resetInterpreter">false</boolProp>
+              <stringProp name="parameters"></stringProp>
+              <stringProp name="filename"></stringProp>
+              <stringProp name="script">import org.apache.jmeter.protocol.http.control.Header;
+
+sampler.getHeaderManager().add(new Header(&quot;Authorization&quot;,&quot;Basic &quot; + &quot;MkZEN0JBNkI0Mjk4NDExNThGMTVCRjYxODczMEFEQTU6MUY3MjVGQjRGOTQ2NDc0OUE1NUFCNkMxN0RCNTZFNDg=&quot;));</stringProp>
+            </BeanShellPreProcessor>
+            <hashTree/>
+          </hashTree>
+        </hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Get Product Prices" enabled="true">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">{&#xd;
+&quot;edc&quot;: [&quot;${Productcode}&quot;],&#xd;
+&quot;companycode&quot;:&quot;C&quot;&#xd;
+}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain"></stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.protocol"></stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">/${VersionNumber}/Price/products</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="49586">200</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+          </ResponseAssertion>
+          <hashTree/>
+          <BeanShellPreProcessor guiclass="TestBeanGUI" testclass="BeanShellPreProcessor" testname="BeanShell PreProcessor" enabled="true">
+            <stringProp name="filename"></stringProp>
+            <stringProp name="parameters"></stringProp>
+            <boolProp name="resetInterpreter">false</boolProp>
+            <stringProp name="script">import org.apache.jmeter.protocol.http.control.Header;
+
+sampler.getHeaderManager().remove(1);
+sampler.getHeaderManager().add(new Header(&quot;Authorization&quot;,&quot;Bearer &quot; + vars.get(&quot;authToken&quot;)));</stringProp>
+          </BeanShellPreProcessor>
+          <hashTree/>
+        </hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Get 10 Product Prices Authenticated user" enabled="true">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">{&#xd;
+&quot;UserTrackingId&quot;: &quot;3316F72C-5619-4A94-9C90-9827E54D7F52&quot;,&#xd;
+&quot;IsLoggedIn&quot;: true,&#xd;
+&quot;CustomPageKey&quot;: &quot;0C06AAC22F884A20886B1EBFF95F4116&quot;,&#xd;
+&quot;IsTransactiveUser&quot;: true,&#xd;
+&quot;IsEProcurementUser&quot;: false,&#xd;
+&quot;SessionKey&quot;: &quot;SessionKey&quot;,&#xd;
+&quot;edc&quot;:[&quot;530527&quot;,&quot;530914&quot;,&quot;530916&quot;,&quot;530918&quot;,&quot;530922&quot;,&quot;530925&quot;,&quot;530949&quot;,&quot;532147&quot;,&quot;532148&quot;,&quot;538693&quot;],&#xd;
+&quot;companycode&quot;:&quot;C&quot;,&#xd;
+&quot;IsClosedLoop&quot;:true,&#xd;
+&quot;IsEppUser&quot;: false,&#xd;
+&quot;LowestPrice&quot;: false&#xd;
+}&#xd;
+&#xd;
+</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain"></stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.protocol"></stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">/${VersionNumber}/Price/products</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="49586">200</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+          </ResponseAssertion>
+          <hashTree/>
+          <BeanShellPreProcessor guiclass="TestBeanGUI" testclass="BeanShellPreProcessor" testname="BeanShell PreProcessor" enabled="true">
+            <stringProp name="filename"></stringProp>
+            <stringProp name="parameters"></stringProp>
+            <boolProp name="resetInterpreter">false</boolProp>
+            <stringProp name="script">import org.apache.jmeter.protocol.http.control.Header;
+
+sampler.getHeaderManager().remove(1);
+sampler.getHeaderManager().add(new Header(&quot;Authorization&quot;,&quot;Bearer &quot; + vars.get(&quot;authToken&quot;)));</stringProp>
+          </BeanShellPreProcessor>
+          <hashTree/>
+        </hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Get 200 Product Prices Authenticated user" enabled="true">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">{&#xd;
+&quot;UserTrackingId&quot;: &quot;3316F72C-5619-4A94-9C90-9827E54D7F52&quot;,&#xd;
+&quot;IsLoggedIn&quot;: true,&#xd;
+&quot;CustomPageKey&quot;: &quot;0C06AAC22F884A20886B1EBFF95F4116&quot;,&#xd;
+&quot;IsTransactiveUser&quot;: true,&#xd;
+&quot;IsEProcurementUser&quot;: false,&#xd;
+&quot;SessionKey&quot;: &quot;SessionKey&quot;,&#xd;
+&quot;edc&quot;:[&quot;083631&quot;,&quot;083634&quot;,&quot;084331&quot;,&quot;083625&quot;,&quot;083626&quot;,&quot;083628&quot;,&quot;087104&quot;,&quot;087298&quot;,&quot;087300&quot;,&quot;087891&quot;,&quot;071982&quot;,&quot;088122&quot;,&quot;088868&quot;,&quot;074304&quot;,&quot;091069&quot;,&quot;092544&quot;,&quot;095758&quot;,&quot;097678&quot;,&quot;083623&quot;,&quot;083630&quot;,&quot;084941&quot;,&quot;087301&quot;,&quot;090139&quot;,&quot;091361&quot;,&quot;095798&quot;,&quot;113279&quot;,&quot;113626&quot;,&quot;120144&quot;,&quot;120145&quot;,&quot;120147&quot;,&quot;107619&quot;,&quot;113278&quot;,&quot;132770&quot;,&quot;149989&quot;,&quot;154407&quot;,&quot;154135&quot;,&quot;154388&quot;,&quot;154816&quot;,&quot;153992&quot;,&quot;154083&quot;,&quot;157251&quot;,&quot;154408&quot;,&quot;170012&quot;,&quot;170009&quot;,&quot;178114&quot;,&quot;187563&quot;,&quot;187572&quot;,&quot;188958&quot;,&quot;188957&quot;,&quot;187566&quot;,&quot;187571&quot;,&quot;187573&quot;,&quot;194821&quot;,&quot;189802&quot;,&quot;228165&quot;,&quot;103476&quot;,&quot;138894&quot;,&quot;154410&quot;,&quot;158730&quot;,&quot;159510&quot;,&quot;234189&quot;,&quot;236850&quot;,&quot;238563&quot;,&quot;238560&quot;,&quot;238561&quot;,&quot;238773&quot;,&quot;243279&quot;,&quot;253854&quot;,&quot;254235&quot;,&quot;267221&quot;,&quot;267222&quot;,&quot;272219&quot;,&quot;273408&quot;,&quot;273497&quot;,&quot;273464&quot;,&quot;273424&quot;,&quot;285927&quot;,&quot;285930&quot;,&quot;299721&quot;,&quot;299732&quot;,&quot;299723&quot;,&quot;299724&quot;,&quot;299725&quot;,&quot;299731&quot;,&quot;299712&quot;,&quot;299718&quot;,&quot;299717&quot;,&quot;305216&quot;,&quot;307725&quot;,&quot;307717&quot;,&quot;309191&quot;,&quot;309846&quot;,&quot;312440&quot;,&quot;312262&quot;,&quot;313493&quot;,&quot;316352&quot;,&quot;316351&quot;,&quot;316963&quot;,&quot;316961&quot;,&quot;324174&quot;],&#xd;
+&quot;companycode&quot;:&quot;C&quot;,&#xd;
+&quot;IsClosedLoop&quot;:true,&#xd;
+&quot;IsEppUser&quot;: false,&#xd;
+&quot;LowestPrice&quot;: false&#xd;
+}&#xd;
+</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain"></stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.protocol"></stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">/${VersionNumber}/Price/products</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="49586">200</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+          </ResponseAssertion>
+          <hashTree/>
+          <BeanShellPreProcessor guiclass="TestBeanGUI" testclass="BeanShellPreProcessor" testname="BeanShell PreProcessor" enabled="true">
+            <stringProp name="filename"></stringProp>
+            <stringProp name="parameters"></stringProp>
+            <boolProp name="resetInterpreter">false</boolProp>
+            <stringProp name="script">import org.apache.jmeter.protocol.http.control.Header;
+
+sampler.getHeaderManager().remove(1);
+sampler.getHeaderManager().add(new Header(&quot;Authorization&quot;,&quot;Bearer &quot; + vars.get(&quot;authToken&quot;)));</stringProp>
+          </BeanShellPreProcessor>
+          <hashTree/>
+        </hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Get 100 Product Prices With Contract Price" enabled="true">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">{&#xd;
+&quot;UserTrackingId&quot;: &quot;91221A39-464C-4209-B173-4FC71D53C31A&quot;,&#xd;
+&quot;IsLoggedIn&quot;: true,&#xd;
+&quot;CustomPageKey&quot;: &quot;0C06AAC22F884A20886B1EBFF95F4116&quot;,&#xd;
+&quot;IsTransactiveUser&quot;: true,&#xd;
+&quot;IsEProcurementUser&quot;: false,&#xd;
+&quot;SessionKey&quot;: &quot;SessionKey&quot;,&#xd;
+&quot;edc&quot;:[&quot;083631&quot;,&quot;083634&quot;,&quot;084331&quot;,&quot;083625&quot;,&quot;083626&quot;,&quot;083628&quot;,&quot;087104&quot;,&quot;087298&quot;,&quot;087300&quot;,&quot;087891&quot;,&quot;071982&quot;,&quot;088122&quot;,&quot;088868&quot;,&quot;074304&quot;,&quot;091069&quot;,&quot;092544&quot;,&quot;095758&quot;,&quot;097678&quot;,&quot;083623&quot;,&quot;083630&quot;,&quot;084941&quot;,&quot;087301&quot;,&quot;090139&quot;,&quot;091361&quot;,&quot;095798&quot;,&quot;113279&quot;,&quot;113626&quot;,&quot;120144&quot;,&quot;120145&quot;,&quot;120147&quot;,&quot;107619&quot;,&quot;113278&quot;,&quot;132770&quot;,&quot;149989&quot;,&quot;154407&quot;,&quot;154135&quot;,&quot;154388&quot;,&quot;154816&quot;,&quot;153992&quot;,&quot;154083&quot;,&quot;157251&quot;,&quot;154408&quot;,&quot;170012&quot;,&quot;170009&quot;,&quot;178114&quot;,&quot;187563&quot;,&quot;187572&quot;,&quot;188958&quot;,&quot;188957&quot;,&quot;187566&quot;,&quot;187571&quot;,&quot;187573&quot;,&quot;194821&quot;,&quot;189802&quot;,&quot;228165&quot;,&quot;103476&quot;,&quot;138894&quot;,&quot;154410&quot;,&quot;158730&quot;,&quot;159510&quot;,&quot;234189&quot;,&quot;236850&quot;,&quot;238563&quot;,&quot;238560&quot;,&quot;238561&quot;,&quot;238773&quot;,&quot;243279&quot;,&quot;253854&quot;,&quot;254235&quot;,&quot;267221&quot;,&quot;267222&quot;,&quot;272219&quot;,&quot;273408&quot;,&quot;273497&quot;,&quot;273464&quot;,&quot;273424&quot;,&quot;285927&quot;,&quot;285930&quot;,&quot;299721&quot;,&quot;299732&quot;,&quot;299723&quot;,&quot;299724&quot;,&quot;299725&quot;,&quot;299731&quot;,&quot;299712&quot;,&quot;299718&quot;,&quot;299717&quot;,&quot;305216&quot;,&quot;307725&quot;,&quot;307717&quot;,&quot;309191&quot;,&quot;309846&quot;,&quot;312440&quot;,&quot;312262&quot;,&quot;313493&quot;,&quot;316352&quot;,&quot;316351&quot;,&quot;316963&quot;,&quot;316961&quot;,&quot;324174&quot;],&#xd;
+&quot;companycode&quot;:&quot;C&quot;,&#xd;
+&quot;IsClosedLoop&quot;:true,&#xd;
+&quot;IsEppUser&quot;: false,&#xd;
+&quot;LowestPrice&quot;: false&#xd;
+}&#xd;
+</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain"></stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.protocol"></stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">/${VersionNumber}/Price/products</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="49586">200</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+          </ResponseAssertion>
+          <hashTree/>
+          <BeanShellPreProcessor guiclass="TestBeanGUI" testclass="BeanShellPreProcessor" testname="BeanShell PreProcessor" enabled="true">
+            <stringProp name="filename"></stringProp>
+            <stringProp name="parameters"></stringProp>
+            <boolProp name="resetInterpreter">false</boolProp>
+            <stringProp name="script">import org.apache.jmeter.protocol.http.control.Header;
+
+sampler.getHeaderManager().remove(1);
+sampler.getHeaderManager().add(new Header(&quot;Authorization&quot;,&quot;Bearer &quot; + vars.get(&quot;authToken&quot;)));</stringProp>
+          </BeanShellPreProcessor>
+          <hashTree/>
+        </hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Get 100 Product Prices Extranet Price " enabled="true">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">{&#xd;
+&quot;UserTrackingId&quot;: &quot;5428E218-6333-46E2-BE7F-0DEB216E6E56&quot;,&#xd;
+&quot;IsLoggedIn&quot;: true,&#xd;
+&quot;CustomPageKey&quot;: &quot;0C06AAC22F884A20886B1EBFF95F4116&quot;,&#xd;
+&quot;IsTransactiveUser&quot;: true,&#xd;
+&quot;IsEProcurementUser&quot;: false,&#xd;
+&quot;SessionKey&quot;: &quot;SessionKey&quot;,&#xd;
+&quot;edc&quot;:[&quot;083631&quot;,&quot;083634&quot;,&quot;084331&quot;,&quot;083625&quot;,&quot;083626&quot;,&quot;083628&quot;,&quot;087104&quot;,&quot;087298&quot;,&quot;087300&quot;,&quot;087891&quot;,&quot;071982&quot;,&quot;088122&quot;,&quot;088868&quot;,&quot;074304&quot;,&quot;091069&quot;,&quot;092544&quot;,&quot;095758&quot;,&quot;097678&quot;,&quot;083623&quot;,&quot;083630&quot;,&quot;084941&quot;,&quot;087301&quot;,&quot;090139&quot;,&quot;091361&quot;,&quot;095798&quot;,&quot;113279&quot;,&quot;113626&quot;,&quot;120144&quot;,&quot;120145&quot;,&quot;120147&quot;,&quot;107619&quot;,&quot;113278&quot;,&quot;132770&quot;,&quot;149989&quot;,&quot;154407&quot;,&quot;154135&quot;,&quot;154388&quot;,&quot;154816&quot;,&quot;153992&quot;,&quot;154083&quot;,&quot;157251&quot;,&quot;154408&quot;,&quot;170012&quot;,&quot;170009&quot;,&quot;178114&quot;,&quot;187563&quot;,&quot;187572&quot;,&quot;188958&quot;,&quot;188957&quot;,&quot;187566&quot;,&quot;187571&quot;,&quot;187573&quot;,&quot;194821&quot;,&quot;189802&quot;,&quot;228165&quot;,&quot;103476&quot;,&quot;138894&quot;,&quot;154410&quot;,&quot;158730&quot;,&quot;159510&quot;,&quot;234189&quot;,&quot;236850&quot;,&quot;238563&quot;,&quot;238560&quot;,&quot;238561&quot;,&quot;238773&quot;,&quot;243279&quot;,&quot;253854&quot;,&quot;254235&quot;,&quot;267221&quot;,&quot;267222&quot;,&quot;272219&quot;,&quot;273408&quot;,&quot;273497&quot;,&quot;273464&quot;,&quot;273424&quot;,&quot;285927&quot;,&quot;285930&quot;,&quot;299721&quot;,&quot;299732&quot;,&quot;299723&quot;,&quot;299724&quot;,&quot;299725&quot;,&quot;299731&quot;,&quot;299712&quot;,&quot;299718&quot;,&quot;299717&quot;,&quot;305216&quot;,&quot;307725&quot;,&quot;307717&quot;,&quot;309191&quot;,&quot;309846&quot;,&quot;312440&quot;,&quot;312262&quot;,&quot;313493&quot;,&quot;316352&quot;,&quot;316351&quot;,&quot;316963&quot;,&quot;316961&quot;,&quot;324174&quot;],&#xd;
+&quot;companycode&quot;:&quot;C&quot;,&#xd;
+&quot;IsClosedLoop&quot;:true,&#xd;
+&quot;IsEppUser&quot;: false,&#xd;
+&quot;LowestPrice&quot;: false&#xd;
+}&#xd;
+</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain"></stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.protocol"></stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">/${VersionNumber}/Price/products</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="49586">200</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+          </ResponseAssertion>
+          <hashTree/>
+          <BeanShellPreProcessor guiclass="TestBeanGUI" testclass="BeanShellPreProcessor" testname="BeanShell PreProcessor" enabled="true">
+            <stringProp name="filename"></stringProp>
+            <stringProp name="parameters"></stringProp>
+            <boolProp name="resetInterpreter">false</boolProp>
+            <stringProp name="script">import org.apache.jmeter.protocol.http.control.Header;
+
+sampler.getHeaderManager().remove(1);
+sampler.getHeaderManager().add(new Header(&quot;Authorization&quot;,&quot;Bearer &quot; + vars.get(&quot;authToken&quot;)));</stringProp>
+          </BeanShellPreProcessor>
+          <hashTree/>
+        </hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Get 100 Product Prices Advertise price" enabled="true">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">{&#xd;
+&quot;IsLoggedIn&quot;: false,&#xd;
+&quot;SessionKey&quot;: &quot;SessionKey&quot;,&#xd;
+&quot;edc&quot;:[&quot;083631&quot;,&quot;083634&quot;,&quot;084331&quot;,&quot;083625&quot;,&quot;083626&quot;,&quot;083628&quot;,&quot;087104&quot;,&quot;087298&quot;,&quot;087300&quot;,&quot;087891&quot;,&quot;071982&quot;,&quot;088122&quot;,&quot;088868&quot;,&quot;074304&quot;,&quot;091069&quot;,&quot;092544&quot;,&quot;095758&quot;,&quot;097678&quot;,&quot;083623&quot;,&quot;083630&quot;,&quot;084941&quot;,&quot;087301&quot;,&quot;090139&quot;,&quot;091361&quot;,&quot;095798&quot;,&quot;113279&quot;,&quot;113626&quot;,&quot;120144&quot;,&quot;120145&quot;,&quot;120147&quot;,&quot;107619&quot;,&quot;113278&quot;,&quot;132770&quot;,&quot;149989&quot;,&quot;154407&quot;,&quot;154135&quot;,&quot;154388&quot;,&quot;154816&quot;,&quot;153992&quot;,&quot;154083&quot;,&quot;157251&quot;,&quot;154408&quot;,&quot;170012&quot;,&quot;170009&quot;,&quot;178114&quot;,&quot;187563&quot;,&quot;187572&quot;,&quot;188958&quot;,&quot;188957&quot;,&quot;187566&quot;,&quot;187571&quot;,&quot;187573&quot;,&quot;194821&quot;,&quot;189802&quot;,&quot;228165&quot;,&quot;103476&quot;,&quot;138894&quot;,&quot;154410&quot;,&quot;158730&quot;,&quot;159510&quot;,&quot;234189&quot;,&quot;236850&quot;,&quot;238563&quot;,&quot;238560&quot;,&quot;238561&quot;,&quot;238773&quot;,&quot;243279&quot;,&quot;253854&quot;,&quot;254235&quot;,&quot;267221&quot;,&quot;267222&quot;,&quot;272219&quot;,&quot;273408&quot;,&quot;273497&quot;,&quot;273464&quot;,&quot;273424&quot;,&quot;285927&quot;,&quot;285930&quot;,&quot;299721&quot;,&quot;299732&quot;,&quot;299723&quot;,&quot;299724&quot;,&quot;299725&quot;,&quot;299731&quot;,&quot;299712&quot;,&quot;299718&quot;,&quot;299717&quot;,&quot;305216&quot;,&quot;307725&quot;,&quot;307717&quot;,&quot;309191&quot;,&quot;309846&quot;,&quot;312440&quot;,&quot;312262&quot;,&quot;313493&quot;,&quot;316352&quot;,&quot;316351&quot;,&quot;316963&quot;,&quot;316961&quot;,&quot;324174&quot;],&#xd;
+&quot;companycode&quot;:&quot;C&quot;,&#xd;
+&quot;IsClosedLoop&quot;:true,&#xd;
+&quot;IsEppUser&quot;: false,&#xd;
+&quot;LowestPrice&quot;: false&#xd;
+}&#xd;
+</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain"></stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.protocol"></stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">/${VersionNumber}/Price/products</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="49586">200</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+          </ResponseAssertion>
+          <hashTree/>
+          <BeanShellPreProcessor guiclass="TestBeanGUI" testclass="BeanShellPreProcessor" testname="BeanShell PreProcessor" enabled="true">
+            <stringProp name="filename"></stringProp>
+            <stringProp name="parameters"></stringProp>
+            <boolProp name="resetInterpreter">false</boolProp>
+            <stringProp name="script">import org.apache.jmeter.protocol.http.control.Header;
+
+sampler.getHeaderManager().remove(1);
+sampler.getHeaderManager().add(new Header(&quot;Authorization&quot;,&quot;Bearer &quot; + vars.get(&quot;authToken&quot;)));</stringProp>
+          </BeanShellPreProcessor>
+          <hashTree/>
+        </hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Get Bid price tiers" enabled="true">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">{&#xd;
+  &quot;UserTrackingId&quot;: &quot;3316F72C-5619-4A94-9C90-9827E54D7F52&quot;,&#xd;
+  &quot;CompanyCode&quot; : &quot;01&quot;,&#xd;
+  &quot;ProductCode&quot; : &quot;4076472&quot;,&#xd;
+  &quot;Quantity&quot; : &quot;3&quot;&#xd;
+}  &#xd;
+</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain"></stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.protocol"></stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">/${VersionNumber}/Price/bidprice</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="49586">200</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+          </ResponseAssertion>
+          <hashTree/>
+          <BeanShellPreProcessor guiclass="TestBeanGUI" testclass="BeanShellPreProcessor" testname="BeanShell PreProcessor" enabled="true">
+            <stringProp name="filename"></stringProp>
+            <stringProp name="parameters"></stringProp>
+            <boolProp name="resetInterpreter">false</boolProp>
+            <stringProp name="script">import org.apache.jmeter.protocol.http.control.Header;
+
+sampler.getHeaderManager().remove(1);
+sampler.getHeaderManager().add(new Header(&quot;Authorization&quot;,&quot;Bearer &quot; + vars.get(&quot;authToken&quot;)));</stringProp>
+          </BeanShellPreProcessor>
+          <hashTree/>
+        </hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Get RecycleFees" enabled="true">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">{&#xd;
+  &quot;OrganizationKey&quot;:&quot;&quot;,&#xd;
+  &quot;OrganizationCode&quot;:&quot;&quot;,&#xd;
+  &quot;State&quot;: &quot;CA&quot;,&#xd;
+  &quot;EffectiveDate&quot;:&quot;11/16/2015&quot;,&#xd;
+  &quot;ProductCodes&quot;:[&#xd;
+  &quot;234982&quot;,&#xd;
+  &quot;238350&quot;,&#xd;
+  &quot;216255&quot;&#xd;
+ ]&#xd;
+}  &#xd;
+</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain"></stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.protocol"></stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">/${VersionNumber}/Price/recyclefees</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="49586">200</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+          </ResponseAssertion>
+          <hashTree/>
+          <BeanShellPreProcessor guiclass="TestBeanGUI" testclass="BeanShellPreProcessor" testname="BeanShell PreProcessor" enabled="true">
+            <stringProp name="filename"></stringProp>
+            <stringProp name="parameters"></stringProp>
+            <boolProp name="resetInterpreter">false</boolProp>
+            <stringProp name="script">import org.apache.jmeter.protocol.http.control.Header;
+
+sampler.getHeaderManager().remove(1);
+sampler.getHeaderManager().add(new Header(&quot;Authorization&quot;,&quot;Bearer &quot; + vars.get(&quot;authToken&quot;)));</stringProp>
+          </BeanShellPreProcessor>
+          <hashTree/>
+        </hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GetLeasePrice" enabled="true">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">{&#xd;
+  &quot;Price&quot;: 100.565,&#xd;
+  &quot;CompanyCode&quot;: 01&#xd;
+}&#xd;
+</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain"></stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.protocol"></stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">/${VersionNumber}/Price/leaseprice</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="49586">200</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+          </ResponseAssertion>
+          <hashTree/>
+          <BeanShellPreProcessor guiclass="TestBeanGUI" testclass="BeanShellPreProcessor" testname="BeanShell PreProcessor" enabled="true">
+            <stringProp name="filename"></stringProp>
+            <stringProp name="parameters"></stringProp>
+            <boolProp name="resetInterpreter">false</boolProp>
+            <stringProp name="script">import org.apache.jmeter.protocol.http.control.Header;
+
+sampler.getHeaderManager().remove(1);
+sampler.getHeaderManager().add(new Header(&quot;Authorization&quot;,&quot;Bearer &quot; + vars.get(&quot;authToken&quot;)));</stringProp>
+          </BeanShellPreProcessor>
+          <hashTree/>
+        </hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Get ContractFees" enabled="true">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">{&quot;Items&quot;:[{&#xd;
+    &quot;ContractId&quot;:12119,&#xd;
+    &quot;ProductCode&quot;: &quot;3519198&quot;,&#xd;
+    &quot;UnitPrice&quot;: 12813.99,&#xd;
+    &quot;Quantity&quot;:1&#xd;
+}]}&#xd;
+</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain"></stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.protocol"></stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">/${VersionNumber}/Price/contractfees</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="49586">200</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+          </ResponseAssertion>
+          <hashTree/>
+          <BeanShellPreProcessor guiclass="TestBeanGUI" testclass="BeanShellPreProcessor" testname="BeanShell PreProcessor" enabled="true">
+            <stringProp name="filename"></stringProp>
+            <stringProp name="parameters"></stringProp>
+            <boolProp name="resetInterpreter">false</boolProp>
+            <stringProp name="script">import org.apache.jmeter.protocol.http.control.Header;
+
+sampler.getHeaderManager().remove(1);
+sampler.getHeaderManager().add(new Header(&quot;Authorization&quot;,&quot;Bearer &quot; + vars.get(&quot;authToken&quot;)));</stringProp>
+          </BeanShellPreProcessor>
+          <hashTree/>
+        </hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Get BundleDetails" enabled="true">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">{&quot;Items&quot;:[{&#xd;
+    &quot;ContractId&quot;:12119,&#xd;
+    &quot;ProductCode&quot;: &quot;3519198&quot;,&#xd;
+    &quot;UnitPrice&quot;: 12813.99,&#xd;
+    &quot;Quantity&quot;:1&#xd;
+}]}&#xd;
+</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain"></stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.protocol"></stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">/${VersionNumber}/Price/bundledetails</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="49586">200</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+          </ResponseAssertion>
+          <hashTree/>
+          <BeanShellPreProcessor guiclass="TestBeanGUI" testclass="BeanShellPreProcessor" testname="BeanShell PreProcessor" enabled="true">
+            <stringProp name="filename"></stringProp>
+            <stringProp name="parameters"></stringProp>
+            <boolProp name="resetInterpreter">false</boolProp>
+            <stringProp name="script">import org.apache.jmeter.protocol.http.control.Header;
+
+sampler.getHeaderManager().remove(1);
+sampler.getHeaderManager().add(new Header(&quot;Authorization&quot;,&quot;Bearer &quot; + vars.get(&quot;authToken&quot;)));</stringProp>
+          </BeanShellPreProcessor>
+          <hashTree/>
+        </hashTree>
+        <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
+          <boolProp name="ResultCollector.error_logging">false</boolProp>
+          <objProp>
+            <name>saveConfig</name>
+            <value class="SampleSaveConfiguration">
+              <time>true</time>
+              <latency>true</latency>
+              <timestamp>true</timestamp>
+              <success>true</success>
+              <label>true</label>
+              <code>true</code>
+              <message>true</message>
+              <threadName>true</threadName>
+              <dataType>true</dataType>
+              <encoding>false</encoding>
+              <assertions>true</assertions>
+              <subresults>true</subresults>
+              <responseData>false</responseData>
+              <samplerData>false</samplerData>
+              <xml>false</xml>
+              <fieldNames>true</fieldNames>
+              <responseHeaders>false</responseHeaders>
+              <requestHeaders>false</requestHeaders>
+              <responseDataOnError>false</responseDataOnError>
+              <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+              <assertionsResultsToSave>0</assertionsResultsToSave>
+              <bytes>true</bytes>
+              <sentBytes>true</sentBytes>
+              <threadCounts>true</threadCounts>
+              <idleTime>true</idleTime>
+              <connectTime>true</connectTime>
+            </value>
+          </objProp>
+          <stringProp name="filename"></stringProp>
+        </ResultCollector>
+        <hashTree/>
+        <ResultCollector guiclass="StatGraphVisualizer" testclass="ResultCollector" testname="Aggregate Graph" enabled="true">
+          <boolProp name="ResultCollector.error_logging">false</boolProp>
+          <objProp>
+            <name>saveConfig</name>
+            <value class="SampleSaveConfiguration">
+              <time>true</time>
+              <latency>true</latency>
+              <timestamp>true</timestamp>
+              <success>true</success>
+              <label>true</label>
+              <code>true</code>
+              <message>true</message>
+              <threadName>true</threadName>
+              <dataType>true</dataType>
+              <encoding>false</encoding>
+              <assertions>true</assertions>
+              <subresults>true</subresults>
+              <responseData>false</responseData>
+              <samplerData>false</samplerData>
+              <xml>false</xml>
+              <fieldNames>true</fieldNames>
+              <responseHeaders>false</responseHeaders>
+              <requestHeaders>false</requestHeaders>
+              <responseDataOnError>false</responseDataOnError>
+              <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+              <assertionsResultsToSave>0</assertionsResultsToSave>
+              <bytes>true</bytes>
+              <sentBytes>true</sentBytes>
+              <threadCounts>true</threadCounts>
+              <idleTime>true</idleTime>
+              <connectTime>true</connectTime>
+            </value>
+          </objProp>
+          <stringProp name="filename">${RESULTS_FILE}</stringProp>
+        </ResultCollector>
+        <hashTree/>
+        <ResultCollector guiclass="SummaryReport" testclass="ResultCollector" testname="Summary Report" enabled="true">
+          <boolProp name="ResultCollector.error_logging">true</boolProp>
+          <objProp>
+            <name>saveConfig</name>
+            <value class="SampleSaveConfiguration">
+              <time>true</time>
+              <latency>true</latency>
+              <timestamp>true</timestamp>
+              <success>true</success>
+              <label>true</label>
+              <code>true</code>
+              <message>true</message>
+              <threadName>true</threadName>
+              <dataType>true</dataType>
+              <encoding>false</encoding>
+              <assertions>true</assertions>
+              <subresults>true</subresults>
+              <responseData>false</responseData>
+              <samplerData>false</samplerData>
+              <xml>false</xml>
+              <fieldNames>true</fieldNames>
+              <responseHeaders>false</responseHeaders>
+              <requestHeaders>false</requestHeaders>
+              <responseDataOnError>false</responseDataOnError>
+              <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+              <assertionsResultsToSave>0</assertionsResultsToSave>
+              <bytes>true</bytes>
+              <sentBytes>true</sentBytes>
+              <threadCounts>true</threadCounts>
+              <idleTime>true</idleTime>
+              <connectTime>true</connectTime>
+            </value>
+          </objProp>
+          <stringProp name="filename"></stringProp>
+        </ResultCollector>
+        <hashTree/>
+        <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+          <collectionProp name="Arguments.arguments">
+            <elementProp name="VersionNumber" elementType="Argument">
+              <stringProp name="Argument.name">VersionNumber</stringProp>
+              <stringProp name="Argument.value">${__P(VersionNumber,v2.4)}</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="BASE_URL" elementType="Argument">
+              <stringProp name="Argument.name">BASE_URL</stringProp>
+              <stringProp name="Argument.value">${__P(BASE_URL,rest-dev-external.corp.cdw.com)}</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="Protocol" elementType="Argument">
+              <stringProp name="Argument.name">Protocol</stringProp>
+              <stringProp name="Argument.value">${__P(PROTOCOL,https)}</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="LOOP" elementType="Argument">
+              <stringProp name="Argument.name">LOOP</stringProp>
+              <stringProp name="Argument.value">${__P(LOOP,25)}</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="RAMPUP" elementType="Argument">
+              <stringProp name="Argument.name">RAMPUP</stringProp>
+              <stringProp name="Argument.value">${__P(RAMPUP,25)}</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="THREADS" elementType="Argument">
+              <stringProp name="Argument.name">THREADS</stringProp>
+              <stringProp name="Argument.value">${__P(THREADS,25)}</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="RESULTS_FILE" elementType="Argument">
+              <stringProp name="Argument.name">RESULTS_FILE</stringProp>
+              <stringProp name="Argument.value">${__P(RESULTS_FILE,)}</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="PRODUCTCODES_CSVFILE" elementType="Argument">
+              <stringProp name="Argument.name">PRODUCTCODES_CSVFILE</stringProp>
+              <stringProp name="Argument.value">${__P(PRODUCTCODES_CSVFILE,..\Resources\Productcodes.csv)}</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+          </collectionProp>
+        </Arguments>
+        <hashTree/>
+        <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSV Data Set Config" enabled="true">
+          <stringProp name="delimiter">,</stringProp>
+          <stringProp name="fileEncoding"></stringProp>
+          <stringProp name="filename">${PRODUCTCODES_CSVFILE}</stringProp>
+          <boolProp name="ignoreFirstLine">false</boolProp>
+          <boolProp name="quotedData">false</boolProp>
+          <boolProp name="recycle">true</boolProp>
+          <stringProp name="shareMode">shareMode.all</stringProp>
+          <boolProp name="stopThread">false</boolProp>
+          <stringProp name="variableNames"></stringProp>
+        </CSVDataSet>
+        <hashTree/>
+      </hashTree>
+      <kg.apc.jmeter.threads.SteppingThreadGroup guiclass="kg.apc.jmeter.threads.SteppingThreadGroupGui" testclass="kg.apc.jmeter.threads.SteppingThreadGroup" testname="Price API Stepping Thread Group" enabled="false">
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <stringProp name="ThreadGroup.num_threads">30</stringProp>
+        <stringProp name="Threads initial delay">0</stringProp>
+        <stringProp name="Start users count"></stringProp>
+        <stringProp name="Start users count burst">0</stringProp>
+        <stringProp name="Start users period"></stringProp>
+        <stringProp name="Stop users count"></stringProp>
+        <stringProp name="Stop users period"></stringProp>
+        <stringProp name="flighttime">60</stringProp>
+        <stringProp name="rampUp"></stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+          <intProp name="LoopController.loops">-1</intProp>
+        </elementProp>
+      </kg.apc.jmeter.threads.SteppingThreadGroup>
+      <hashTree>
+        <ConfigTestElement guiclass="HttpDefaultsGui" testclass="ConfigTestElement" testname="HTTP Request Defaults" enabled="false">
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+            <collectionProp name="Arguments.arguments"/>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain">${BASE_URL}</stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.protocol">${Protocol}</stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path"></stringProp>
+          <stringProp name="HTTPSampler.concurrentPool">6</stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+        </ConfigTestElement>
+        <hashTree/>
+        <IfController guiclass="IfControllerPanel" testclass="IfController" testname="If Controller" enabled="false">
+          <stringProp name="IfController.condition">&quot;${authToken}&quot; == &quot;\${authToken}&quot;</stringProp>
+          <boolProp name="IfController.evaluateAll">false</boolProp>
+          <stringProp name="TestPlan.comments">Gets The Token only when it&apos;s not avaialable</stringProp>
+        </IfController>
+        <hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Token Endpoint" enabled="false">
+            <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">grant_type=client_credentials</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp name="HTTPSampler.path">/${VersionNumber}/Price/token</stringProp>
+            <stringProp name="HTTPSampler.method">POST</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor" enabled="false">
+              <stringProp name="JSONPostProcessor.referenceNames">authToken</stringProp>
+              <stringProp name="JSONPostProcessor.jsonPathExprs">$..access_token</stringProp>
+              <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
+              <stringProp name="Scope.variable">token</stringProp>
+            </JSONPostProcessor>
+            <hashTree/>
+            <DebugPostProcessor guiclass="TestBeanGUI" testclass="DebugPostProcessor" testname="Debug PostProcessor" enabled="false">
+              <boolProp name="displayJMeterProperties">false</boolProp>
+              <boolProp name="displayJMeterVariables">true</boolProp>
+              <boolProp name="displaySamplerProperties">true</boolProp>
+              <boolProp name="displaySystemProperties">false</boolProp>
+            </DebugPostProcessor>
+            <hashTree/>
+            <BeanShellPreProcessor guiclass="TestBeanGUI" testclass="BeanShellPreProcessor" testname="BeanShell PreProcessor" enabled="false">
+              <boolProp name="resetInterpreter">false</boolProp>
+              <stringProp name="parameters"></stringProp>
+              <stringProp name="filename"></stringProp>
+              <stringProp name="script">import org.apache.jmeter.protocol.http.control.Header;
+
+sampler.getHeaderManager().add(new Header(&quot;Authorization&quot;,&quot;Basic &quot; + &quot;MkZEN0JBNkI0Mjk4NDExNThGMTVCRjYxODczMEFEQTU6MUY3MjVGQjRGOTQ2NDc0OUE1NUFCNkMxN0RCNTZFNDg=&quot;));</stringProp>
+            </BeanShellPreProcessor>
+            <hashTree/>
+          </hashTree>
+        </hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Get Product Prices" enabled="false">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">{&#xd;
+&quot;edc&quot;: [&quot;${Productcode}&quot;],&#xd;
+&quot;companycode&quot;:&quot;C&quot;&#xd;
+}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain"></stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.protocol"></stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">/${VersionNumber}/Price/products</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="false">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="49586">200</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+          </ResponseAssertion>
+          <hashTree/>
+          <BeanShellPreProcessor guiclass="TestBeanGUI" testclass="BeanShellPreProcessor" testname="BeanShell PreProcessor" enabled="false">
+            <stringProp name="filename"></stringProp>
+            <stringProp name="parameters"></stringProp>
+            <boolProp name="resetInterpreter">false</boolProp>
+            <stringProp name="script">import org.apache.jmeter.protocol.http.control.Header;
+
+sampler.getHeaderManager().remove(1);
+sampler.getHeaderManager().add(new Header(&quot;Authorization&quot;,&quot;Bearer &quot; + vars.get(&quot;authToken&quot;)));</stringProp>
+          </BeanShellPreProcessor>
+          <hashTree/>
+        </hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Get 100 Product Prices With Contract Price" enabled="false">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">{&#xd;
+&quot;UserTrackingId&quot;: &quot;91221A39-464C-4209-B173-4FC71D53C31A&quot;,&#xd;
+&quot;IsLoggedIn&quot;: true,&#xd;
+&quot;CustomPageKey&quot;: &quot;0C06AAC22F884A20886B1EBFF95F4116&quot;,&#xd;
+&quot;IsTransactiveUser&quot;: true,&#xd;
+&quot;IsEProcurementUser&quot;: false,&#xd;
+&quot;SessionKey&quot;: &quot;SessionKey&quot;,&#xd;
+&quot;edc&quot;:[&quot;083631&quot;,&quot;083634&quot;,&quot;084331&quot;,&quot;083625&quot;,&quot;083626&quot;,&quot;083628&quot;,&quot;087104&quot;,&quot;087298&quot;,&quot;087300&quot;,&quot;087891&quot;,&quot;071982&quot;,&quot;088122&quot;,&quot;088868&quot;,&quot;074304&quot;,&quot;091069&quot;,&quot;092544&quot;,&quot;095758&quot;,&quot;097678&quot;,&quot;083623&quot;,&quot;083630&quot;,&quot;084941&quot;,&quot;087301&quot;,&quot;090139&quot;,&quot;091361&quot;,&quot;095798&quot;,&quot;113279&quot;,&quot;113626&quot;,&quot;120144&quot;,&quot;120145&quot;,&quot;120147&quot;,&quot;107619&quot;,&quot;113278&quot;,&quot;132770&quot;,&quot;149989&quot;,&quot;154407&quot;,&quot;154135&quot;,&quot;154388&quot;,&quot;154816&quot;,&quot;153992&quot;,&quot;154083&quot;,&quot;157251&quot;,&quot;154408&quot;,&quot;170012&quot;,&quot;170009&quot;,&quot;178114&quot;,&quot;187563&quot;,&quot;187572&quot;,&quot;188958&quot;,&quot;188957&quot;,&quot;187566&quot;,&quot;187571&quot;,&quot;187573&quot;,&quot;194821&quot;,&quot;189802&quot;,&quot;228165&quot;,&quot;103476&quot;,&quot;138894&quot;,&quot;154410&quot;,&quot;158730&quot;,&quot;159510&quot;,&quot;234189&quot;,&quot;236850&quot;,&quot;238563&quot;,&quot;238560&quot;,&quot;238561&quot;,&quot;238773&quot;,&quot;243279&quot;,&quot;253854&quot;,&quot;254235&quot;,&quot;267221&quot;,&quot;267222&quot;,&quot;272219&quot;,&quot;273408&quot;,&quot;273497&quot;,&quot;273464&quot;,&quot;273424&quot;,&quot;285927&quot;,&quot;285930&quot;,&quot;299721&quot;,&quot;299732&quot;,&quot;299723&quot;,&quot;299724&quot;,&quot;299725&quot;,&quot;299731&quot;,&quot;299712&quot;,&quot;299718&quot;,&quot;299717&quot;,&quot;305216&quot;,&quot;307725&quot;,&quot;307717&quot;,&quot;309191&quot;,&quot;309846&quot;,&quot;312440&quot;,&quot;312262&quot;,&quot;313493&quot;,&quot;316352&quot;,&quot;316351&quot;,&quot;316963&quot;,&quot;316961&quot;,&quot;324174&quot;],&#xd;
+&quot;companycode&quot;:&quot;C&quot;,&#xd;
+&quot;IsClosedLoop&quot;:true,&#xd;
+&quot;IsEppUser&quot;: false,&#xd;
+&quot;LowestPrice&quot;: false&#xd;
+}&#xd;
+</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain"></stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.protocol"></stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">/${VersionNumber}/Price/products</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="false">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="49586">200</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+          </ResponseAssertion>
+          <hashTree/>
+          <BeanShellPreProcessor guiclass="TestBeanGUI" testclass="BeanShellPreProcessor" testname="BeanShell PreProcessor" enabled="false">
+            <stringProp name="filename"></stringProp>
+            <stringProp name="parameters"></stringProp>
+            <boolProp name="resetInterpreter">false</boolProp>
+            <stringProp name="script">import org.apache.jmeter.protocol.http.control.Header;
+
+sampler.getHeaderManager().remove(1);
+sampler.getHeaderManager().add(new Header(&quot;Authorization&quot;,&quot;Bearer &quot; + vars.get(&quot;authToken&quot;)));</stringProp>
+          </BeanShellPreProcessor>
+          <hashTree/>
+        </hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Get 100 Product Prices Extranet Price " enabled="false">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">{&#xd;
+&quot;UserTrackingId&quot;: &quot;5428E218-6333-46E2-BE7F-0DEB216E6E56&quot;,&#xd;
+&quot;IsLoggedIn&quot;: true,&#xd;
+&quot;CustomPageKey&quot;: &quot;0C06AAC22F884A20886B1EBFF95F4116&quot;,&#xd;
+&quot;IsTransactiveUser&quot;: true,&#xd;
+&quot;IsEProcurementUser&quot;: false,&#xd;
+&quot;SessionKey&quot;: &quot;SessionKey&quot;,&#xd;
+&quot;edc&quot;:[&quot;083631&quot;,&quot;083634&quot;,&quot;084331&quot;,&quot;083625&quot;,&quot;083626&quot;,&quot;083628&quot;,&quot;087104&quot;,&quot;087298&quot;,&quot;087300&quot;,&quot;087891&quot;,&quot;071982&quot;,&quot;088122&quot;,&quot;088868&quot;,&quot;074304&quot;,&quot;091069&quot;,&quot;092544&quot;,&quot;095758&quot;,&quot;097678&quot;,&quot;083623&quot;,&quot;083630&quot;,&quot;084941&quot;,&quot;087301&quot;,&quot;090139&quot;,&quot;091361&quot;,&quot;095798&quot;,&quot;113279&quot;,&quot;113626&quot;,&quot;120144&quot;,&quot;120145&quot;,&quot;120147&quot;,&quot;107619&quot;,&quot;113278&quot;,&quot;132770&quot;,&quot;149989&quot;,&quot;154407&quot;,&quot;154135&quot;,&quot;154388&quot;,&quot;154816&quot;,&quot;153992&quot;,&quot;154083&quot;,&quot;157251&quot;,&quot;154408&quot;,&quot;170012&quot;,&quot;170009&quot;,&quot;178114&quot;,&quot;187563&quot;,&quot;187572&quot;,&quot;188958&quot;,&quot;188957&quot;,&quot;187566&quot;,&quot;187571&quot;,&quot;187573&quot;,&quot;194821&quot;,&quot;189802&quot;,&quot;228165&quot;,&quot;103476&quot;,&quot;138894&quot;,&quot;154410&quot;,&quot;158730&quot;,&quot;159510&quot;,&quot;234189&quot;,&quot;236850&quot;,&quot;238563&quot;,&quot;238560&quot;,&quot;238561&quot;,&quot;238773&quot;,&quot;243279&quot;,&quot;253854&quot;,&quot;254235&quot;,&quot;267221&quot;,&quot;267222&quot;,&quot;272219&quot;,&quot;273408&quot;,&quot;273497&quot;,&quot;273464&quot;,&quot;273424&quot;,&quot;285927&quot;,&quot;285930&quot;,&quot;299721&quot;,&quot;299732&quot;,&quot;299723&quot;,&quot;299724&quot;,&quot;299725&quot;,&quot;299731&quot;,&quot;299712&quot;,&quot;299718&quot;,&quot;299717&quot;,&quot;305216&quot;,&quot;307725&quot;,&quot;307717&quot;,&quot;309191&quot;,&quot;309846&quot;,&quot;312440&quot;,&quot;312262&quot;,&quot;313493&quot;,&quot;316352&quot;,&quot;316351&quot;,&quot;316963&quot;,&quot;316961&quot;,&quot;324174&quot;],&#xd;
+&quot;companycode&quot;:&quot;C&quot;,&#xd;
+&quot;IsClosedLoop&quot;:true,&#xd;
+&quot;IsEppUser&quot;: false,&#xd;
+&quot;LowestPrice&quot;: false&#xd;
+}&#xd;
+</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain"></stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.protocol"></stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">/${VersionNumber}/Price/products</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="false">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="49586">200</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+          </ResponseAssertion>
+          <hashTree/>
+          <BeanShellPreProcessor guiclass="TestBeanGUI" testclass="BeanShellPreProcessor" testname="BeanShell PreProcessor" enabled="false">
+            <stringProp name="filename"></stringProp>
+            <stringProp name="parameters"></stringProp>
+            <boolProp name="resetInterpreter">false</boolProp>
+            <stringProp name="script">import org.apache.jmeter.protocol.http.control.Header;
+
+sampler.getHeaderManager().remove(1);
+sampler.getHeaderManager().add(new Header(&quot;Authorization&quot;,&quot;Bearer &quot; + vars.get(&quot;authToken&quot;)));</stringProp>
+          </BeanShellPreProcessor>
+          <hashTree/>
+        </hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Get 100 Product Prices Advertise price" enabled="false">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">{&#xd;
+&quot;IsLoggedIn&quot;: false,&#xd;
+&quot;SessionKey&quot;: &quot;SessionKey&quot;,&#xd;
+&quot;edc&quot;:[&quot;083631&quot;,&quot;083634&quot;,&quot;084331&quot;,&quot;083625&quot;,&quot;083626&quot;,&quot;083628&quot;,&quot;087104&quot;,&quot;087298&quot;,&quot;087300&quot;,&quot;087891&quot;,&quot;071982&quot;,&quot;088122&quot;,&quot;088868&quot;,&quot;074304&quot;,&quot;091069&quot;,&quot;092544&quot;,&quot;095758&quot;,&quot;097678&quot;,&quot;083623&quot;,&quot;083630&quot;,&quot;084941&quot;,&quot;087301&quot;,&quot;090139&quot;,&quot;091361&quot;,&quot;095798&quot;,&quot;113279&quot;,&quot;113626&quot;,&quot;120144&quot;,&quot;120145&quot;,&quot;120147&quot;,&quot;107619&quot;,&quot;113278&quot;,&quot;132770&quot;,&quot;149989&quot;,&quot;154407&quot;,&quot;154135&quot;,&quot;154388&quot;,&quot;154816&quot;,&quot;153992&quot;,&quot;154083&quot;,&quot;157251&quot;,&quot;154408&quot;,&quot;170012&quot;,&quot;170009&quot;,&quot;178114&quot;,&quot;187563&quot;,&quot;187572&quot;,&quot;188958&quot;,&quot;188957&quot;,&quot;187566&quot;,&quot;187571&quot;,&quot;187573&quot;,&quot;194821&quot;,&quot;189802&quot;,&quot;228165&quot;,&quot;103476&quot;,&quot;138894&quot;,&quot;154410&quot;,&quot;158730&quot;,&quot;159510&quot;,&quot;234189&quot;,&quot;236850&quot;,&quot;238563&quot;,&quot;238560&quot;,&quot;238561&quot;,&quot;238773&quot;,&quot;243279&quot;,&quot;253854&quot;,&quot;254235&quot;,&quot;267221&quot;,&quot;267222&quot;,&quot;272219&quot;,&quot;273408&quot;,&quot;273497&quot;,&quot;273464&quot;,&quot;273424&quot;,&quot;285927&quot;,&quot;285930&quot;,&quot;299721&quot;,&quot;299732&quot;,&quot;299723&quot;,&quot;299724&quot;,&quot;299725&quot;,&quot;299731&quot;,&quot;299712&quot;,&quot;299718&quot;,&quot;299717&quot;,&quot;305216&quot;,&quot;307725&quot;,&quot;307717&quot;,&quot;309191&quot;,&quot;309846&quot;,&quot;312440&quot;,&quot;312262&quot;,&quot;313493&quot;,&quot;316352&quot;,&quot;316351&quot;,&quot;316963&quot;,&quot;316961&quot;,&quot;324174&quot;],&#xd;
+&quot;companycode&quot;:&quot;C&quot;,&#xd;
+&quot;IsClosedLoop&quot;:true,&#xd;
+&quot;IsEppUser&quot;: false,&#xd;
+&quot;LowestPrice&quot;: false&#xd;
+}&#xd;
+</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain"></stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.protocol"></stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">/${VersionNumber}/Price/products</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="false">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="49586">200</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+          </ResponseAssertion>
+          <hashTree/>
+          <BeanShellPreProcessor guiclass="TestBeanGUI" testclass="BeanShellPreProcessor" testname="BeanShell PreProcessor" enabled="false">
+            <stringProp name="filename"></stringProp>
+            <stringProp name="parameters"></stringProp>
+            <boolProp name="resetInterpreter">false</boolProp>
+            <stringProp name="script">import org.apache.jmeter.protocol.http.control.Header;
+
+sampler.getHeaderManager().remove(1);
+sampler.getHeaderManager().add(new Header(&quot;Authorization&quot;,&quot;Bearer &quot; + vars.get(&quot;authToken&quot;)));</stringProp>
+          </BeanShellPreProcessor>
+          <hashTree/>
+        </hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Get BundleDetails" enabled="false">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">{&quot;Items&quot;:[{&#xd;
+    &quot;ContractId&quot;:12119,&#xd;
+    &quot;ProductCode&quot;: &quot;3519198&quot;,&#xd;
+    &quot;UnitPrice&quot;: 12813.99,&#xd;
+    &quot;Quantity&quot;:1&#xd;
+}]}&#xd;
+</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain"></stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.protocol"></stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">/${VersionNumber}/Price/bundledetails</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="false">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="49586">200</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+          </ResponseAssertion>
+          <hashTree/>
+          <BeanShellPreProcessor guiclass="TestBeanGUI" testclass="BeanShellPreProcessor" testname="BeanShell PreProcessor" enabled="false">
+            <stringProp name="filename"></stringProp>
+            <stringProp name="parameters"></stringProp>
+            <boolProp name="resetInterpreter">false</boolProp>
+            <stringProp name="script">import org.apache.jmeter.protocol.http.control.Header;
+
+sampler.getHeaderManager().remove(1);
+sampler.getHeaderManager().add(new Header(&quot;Authorization&quot;,&quot;Bearer &quot; + vars.get(&quot;authToken&quot;)));</stringProp>
+          </BeanShellPreProcessor>
+          <hashTree/>
+        </hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Get RecycleFees" enabled="false">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">{&#xd;
+  &quot;OrganizationKey&quot;:&quot;&quot;,&#xd;
+  &quot;OrganizationCode&quot;:&quot;&quot;,&#xd;
+  &quot;State&quot;: &quot;CA&quot;,&#xd;
+  &quot;EffectiveDate&quot;:&quot;11/16/2015&quot;,&#xd;
+  &quot;ProductCodes&quot;:[&#xd;
+  &quot;234982&quot;,&#xd;
+  &quot;238350&quot;,&#xd;
+  &quot;216255&quot;&#xd;
+ ]&#xd;
+}  &#xd;
+</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain"></stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.protocol"></stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">/${VersionNumber}/Price/recyclefees</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="false">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="49586">200</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+          </ResponseAssertion>
+          <hashTree/>
+          <BeanShellPreProcessor guiclass="TestBeanGUI" testclass="BeanShellPreProcessor" testname="BeanShell PreProcessor" enabled="false">
+            <stringProp name="filename"></stringProp>
+            <stringProp name="parameters"></stringProp>
+            <boolProp name="resetInterpreter">false</boolProp>
+            <stringProp name="script">import org.apache.jmeter.protocol.http.control.Header;
+
+sampler.getHeaderManager().remove(1);
+sampler.getHeaderManager().add(new Header(&quot;Authorization&quot;,&quot;Bearer &quot; + vars.get(&quot;authToken&quot;)));</stringProp>
+          </BeanShellPreProcessor>
+          <hashTree/>
+        </hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Get ContractFees" enabled="false">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">{&quot;Items&quot;:[{&#xd;
+    &quot;ContractId&quot;:12119,&#xd;
+    &quot;ProductCode&quot;: &quot;3519198&quot;,&#xd;
+    &quot;UnitPrice&quot;: 12813.99,&#xd;
+    &quot;Quantity&quot;:1&#xd;
+}]}&#xd;
+</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain"></stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.protocol"></stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">/${VersionNumber}/Price/contractfees</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="false">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="49586">200</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+          </ResponseAssertion>
+          <hashTree/>
+          <BeanShellPreProcessor guiclass="TestBeanGUI" testclass="BeanShellPreProcessor" testname="BeanShell PreProcessor" enabled="false">
+            <stringProp name="filename"></stringProp>
+            <stringProp name="parameters"></stringProp>
+            <boolProp name="resetInterpreter">false</boolProp>
+            <stringProp name="script">import org.apache.jmeter.protocol.http.control.Header;
+
+sampler.getHeaderManager().remove(1);
+sampler.getHeaderManager().add(new Header(&quot;Authorization&quot;,&quot;Bearer &quot; + vars.get(&quot;authToken&quot;)));</stringProp>
+          </BeanShellPreProcessor>
+          <hashTree/>
+        </hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Get Bid price tiers" enabled="false">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">{&#xd;
+  &quot;UserTrackingId&quot;: &quot;3316F72C-5619-4A94-9C90-9827E54D7F52&quot;,&#xd;
+  &quot;CompanyCode&quot; : &quot;01&quot;,&#xd;
+  &quot;ProductCode&quot; : &quot;4076472&quot;,&#xd;
+  &quot;Quantity&quot; : &quot;3&quot;&#xd;
+}  &#xd;
+</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain"></stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.protocol"></stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">/${VersionNumber}/Price/bidprice</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="49586">200</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+          </ResponseAssertion>
+          <hashTree/>
+          <BeanShellPreProcessor guiclass="TestBeanGUI" testclass="BeanShellPreProcessor" testname="BeanShell PreProcessor" enabled="true">
+            <stringProp name="filename"></stringProp>
+            <stringProp name="parameters"></stringProp>
+            <boolProp name="resetInterpreter">false</boolProp>
+            <stringProp name="script">import org.apache.jmeter.protocol.http.control.Header;
+
+sampler.getHeaderManager().remove(1);
+sampler.getHeaderManager().add(new Header(&quot;Authorization&quot;,&quot;Bearer &quot; + vars.get(&quot;authToken&quot;)));</stringProp>
+          </BeanShellPreProcessor>
+          <hashTree/>
+        </hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GetLeasePrice" enabled="false">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">{&#xd;
+  &quot;Price&quot;: 100.565,&#xd;
+  &quot;CompanyCode&quot;: 01&#xd;
+}&#xd;
+</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain"></stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.protocol"></stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">/${VersionNumber}/Price/leaseprice</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="49586">200</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+          </ResponseAssertion>
+          <hashTree/>
+          <BeanShellPreProcessor guiclass="TestBeanGUI" testclass="BeanShellPreProcessor" testname="BeanShell PreProcessor" enabled="true">
+            <stringProp name="filename"></stringProp>
+            <stringProp name="parameters"></stringProp>
+            <boolProp name="resetInterpreter">false</boolProp>
+            <stringProp name="script">import org.apache.jmeter.protocol.http.control.Header;
+
+sampler.getHeaderManager().remove(1);
+sampler.getHeaderManager().add(new Header(&quot;Authorization&quot;,&quot;Bearer &quot; + vars.get(&quot;authToken&quot;)));</stringProp>
+          </BeanShellPreProcessor>
+          <hashTree/>
+        </hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Get 10 Product Prices Authenticated user" enabled="false">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">{&#xd;
+&quot;UserTrackingId&quot;: &quot;3316F72C-5619-4A94-9C90-9827E54D7F52&quot;,&#xd;
+&quot;IsLoggedIn&quot;: true,&#xd;
+&quot;CustomPageKey&quot;: &quot;0C06AAC22F884A20886B1EBFF95F4116&quot;,&#xd;
+&quot;IsTransactiveUser&quot;: true,&#xd;
+&quot;IsEProcurementUser&quot;: false,&#xd;
+&quot;SessionKey&quot;: &quot;SessionKey&quot;,&#xd;
+&quot;edc&quot;:[&quot;530527&quot;,&quot;530914&quot;,&quot;530916&quot;,&quot;530918&quot;,&quot;530922&quot;,&quot;530925&quot;,&quot;530949&quot;,&quot;532147&quot;,&quot;532148&quot;,&quot;538693&quot;],&#xd;
+&quot;companycode&quot;:&quot;C&quot;,&#xd;
+&quot;IsClosedLoop&quot;:true,&#xd;
+&quot;IsEppUser&quot;: false,&#xd;
+&quot;LowestPrice&quot;: false&#xd;
+}&#xd;
+&#xd;
+</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain"></stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.protocol"></stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">/${VersionNumber}/Price/products</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="49586">200</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+          </ResponseAssertion>
+          <hashTree/>
+          <BeanShellPreProcessor guiclass="TestBeanGUI" testclass="BeanShellPreProcessor" testname="BeanShell PreProcessor" enabled="true">
+            <stringProp name="filename"></stringProp>
+            <stringProp name="parameters"></stringProp>
+            <boolProp name="resetInterpreter">false</boolProp>
+            <stringProp name="script">import org.apache.jmeter.protocol.http.control.Header;
+
+sampler.getHeaderManager().remove(1);
+sampler.getHeaderManager().add(new Header(&quot;Authorization&quot;,&quot;Bearer &quot; + vars.get(&quot;authToken&quot;)));</stringProp>
+          </BeanShellPreProcessor>
+          <hashTree/>
+        </hashTree>
+        <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="false">
+          <boolProp name="ResultCollector.error_logging">false</boolProp>
+          <objProp>
+            <name>saveConfig</name>
+            <value class="SampleSaveConfiguration">
+              <time>true</time>
+              <latency>true</latency>
+              <timestamp>true</timestamp>
+              <success>true</success>
+              <label>true</label>
+              <code>true</code>
+              <message>true</message>
+              <threadName>true</threadName>
+              <dataType>true</dataType>
+              <encoding>false</encoding>
+              <assertions>true</assertions>
+              <subresults>true</subresults>
+              <responseData>false</responseData>
+              <samplerData>false</samplerData>
+              <xml>false</xml>
+              <fieldNames>true</fieldNames>
+              <responseHeaders>false</responseHeaders>
+              <requestHeaders>false</requestHeaders>
+              <responseDataOnError>false</responseDataOnError>
+              <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+              <assertionsResultsToSave>0</assertionsResultsToSave>
+              <bytes>true</bytes>
+              <sentBytes>true</sentBytes>
+              <threadCounts>true</threadCounts>
+              <idleTime>true</idleTime>
+              <connectTime>true</connectTime>
+            </value>
+          </objProp>
+          <stringProp name="filename"></stringProp>
+        </ResultCollector>
+        <hashTree/>
+        <ResultCollector guiclass="StatGraphVisualizer" testclass="ResultCollector" testname="Aggregate Graph" enabled="false">
+          <boolProp name="ResultCollector.error_logging">false</boolProp>
+          <objProp>
+            <name>saveConfig</name>
+            <value class="SampleSaveConfiguration">
+              <time>true</time>
+              <latency>true</latency>
+              <timestamp>true</timestamp>
+              <success>true</success>
+              <label>true</label>
+              <code>true</code>
+              <message>true</message>
+              <threadName>true</threadName>
+              <dataType>true</dataType>
+              <encoding>false</encoding>
+              <assertions>true</assertions>
+              <subresults>true</subresults>
+              <responseData>false</responseData>
+              <samplerData>false</samplerData>
+              <xml>false</xml>
+              <fieldNames>true</fieldNames>
+              <responseHeaders>false</responseHeaders>
+              <requestHeaders>false</requestHeaders>
+              <responseDataOnError>false</responseDataOnError>
+              <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+              <assertionsResultsToSave>0</assertionsResultsToSave>
+              <bytes>true</bytes>
+              <sentBytes>true</sentBytes>
+              <threadCounts>true</threadCounts>
+              <idleTime>true</idleTime>
+              <connectTime>true</connectTime>
+            </value>
+          </objProp>
+          <stringProp name="filename">${RESULTS_FILE}</stringProp>
+        </ResultCollector>
+        <hashTree/>
+        <ResultCollector guiclass="SummaryReport" testclass="ResultCollector" testname="Summary Report" enabled="false">
+          <boolProp name="ResultCollector.error_logging">false</boolProp>
+          <objProp>
+            <name>saveConfig</name>
+            <value class="SampleSaveConfiguration">
+              <time>true</time>
+              <latency>true</latency>
+              <timestamp>true</timestamp>
+              <success>true</success>
+              <label>true</label>
+              <code>true</code>
+              <message>true</message>
+              <threadName>true</threadName>
+              <dataType>true</dataType>
+              <encoding>false</encoding>
+              <assertions>true</assertions>
+              <subresults>true</subresults>
+              <responseData>false</responseData>
+              <samplerData>false</samplerData>
+              <xml>false</xml>
+              <fieldNames>true</fieldNames>
+              <responseHeaders>false</responseHeaders>
+              <requestHeaders>false</requestHeaders>
+              <responseDataOnError>false</responseDataOnError>
+              <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+              <assertionsResultsToSave>0</assertionsResultsToSave>
+              <bytes>true</bytes>
+              <sentBytes>true</sentBytes>
+              <threadCounts>true</threadCounts>
+              <idleTime>true</idleTime>
+              <connectTime>true</connectTime>
+            </value>
+          </objProp>
+          <stringProp name="filename"></stringProp>
+        </ResultCollector>
+        <hashTree/>
+        <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="false">
+          <collectionProp name="Arguments.arguments">
+            <elementProp name="VersionNumber" elementType="Argument">
+              <stringProp name="Argument.name">VersionNumber</stringProp>
+              <stringProp name="Argument.value">${__P(VersionNumber,v2.4)}</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="Protocol" elementType="Argument">
+              <stringProp name="Argument.name">Protocol</stringProp>
+              <stringProp name="Argument.value">${__P(PROTOCOL,https)}</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="LOOP" elementType="Argument">
+              <stringProp name="Argument.name">LOOP</stringProp>
+              <stringProp name="Argument.value">${__P(LOOP,10)}</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="RAMPUP" elementType="Argument">
+              <stringProp name="Argument.name">RAMPUP</stringProp>
+              <stringProp name="Argument.value">${__P(RAMPUP,25)}</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="THREADS" elementType="Argument">
+              <stringProp name="Argument.name">THREADS</stringProp>
+              <stringProp name="Argument.value">${__P(THREADS,25)}</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="RESULTS_FILE" elementType="Argument">
+              <stringProp name="Argument.name">RESULTS_FILE</stringProp>
+              <stringProp name="Argument.value">${__P(RESULTS_FILE,test.csv)}</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="PRODUCTCODES_CSVFILE" elementType="Argument">
+              <stringProp name="Argument.name">PRODUCTCODES_CSVFILE</stringProp>
+              <stringProp name="Argument.value">${__P(PRODUCTCODES_CSVFILE,./Productcodes.csv)}</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="BASE_URL" elementType="Argument">
+              <stringProp name="Argument.name">BASE_URL</stringProp>
+              <stringProp name="Argument.value">${__P(BASE_URL,rest-dev-external.corp.cdw.com)}</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+          </collectionProp>
+        </Arguments>
+        <hashTree/>
+        <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSV Data Set Config" enabled="false">
+          <stringProp name="delimiter">,</stringProp>
+          <stringProp name="fileEncoding"></stringProp>
+          <stringProp name="filename">${PRODUCTCODES_CSVFILE}</stringProp>
+          <boolProp name="ignoreFirstLine">false</boolProp>
+          <boolProp name="quotedData">false</boolProp>
+          <boolProp name="recycle">true</boolProp>
+          <stringProp name="shareMode">shareMode.all</stringProp>
+          <boolProp name="stopThread">false</boolProp>
+          <stringProp name="variableNames"></stringProp>
+        </CSVDataSet>
+        <hashTree/>
+      </hashTree>
+    </hashTree>
+    <WorkBench guiclass="WorkBenchGui" testclass="WorkBench" testname="WorkBench" enabled="true">
+      <boolProp name="WorkBench.save">true</boolProp>
+    </WorkBench>
+    <hashTree/>
+  </hashTree>
+</jmeterTestPlan>
