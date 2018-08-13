@@ -3603,7 +3603,7 @@ sampler.getHeaderManager().add(new Header(&quot;Authorization&quot;,&quot;Bearer
             <hashTree/>
           </hashTree>
         </hashTree>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GetProductReviews" enabled="true">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GetProductReviews" enabled="false">
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
             <collectionProp name="Arguments.arguments">
               <elementProp name="ProductCode" elementType="HTTPArgument">
@@ -3669,7 +3669,7 @@ sampler.getHeaderManager().add(new Header(&quot;Authorization&quot;,&quot;Bearer
           </BeanShellPreProcessor>
           <hashTree/>
         </hashTree>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="HearthBeat" enabled="true">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="HearthBeat" enabled="false">
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
             <collectionProp name="Arguments.arguments"/>
           </elementProp>
@@ -3708,7 +3708,7 @@ sampler.getHeaderManager().add(new Header(&quot;Authorization&quot;,&quot;Bearer
           </BeanShellPreProcessor>
           <hashTree/>
         </hashTree>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Get ProductReplacement" enabled="true">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Get ProductReplacement" enabled="false">
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
             <collectionProp name="Arguments.arguments">
               <elementProp name="ProductCode" elementType="HTTPArgument">
@@ -3774,7 +3774,7 @@ sampler.getHeaderManager().add(new Header(&quot;Authorization&quot;,&quot;Bearer
           </BeanShellPreProcessor>
           <hashTree/>
         </hashTree>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="InvalidateGetAsync" enabled="true">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="InvalidateGetAsync" enabled="false">
           <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
             <collectionProp name="Arguments.arguments">
@@ -3844,7 +3844,7 @@ sampler.getHeaderManager().add(new Header(&quot;Authorization&quot;,&quot;Bearer
           </BeanShellPreProcessor>
           <hashTree/>
         </hashTree>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Get Products (External)" enabled="false">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Get Products" enabled="false">
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
             <collectionProp name="Arguments.arguments">
               <elementProp name="ProductCodes" elementType="HTTPArgument">
@@ -3903,66 +3903,7 @@ sampler.getHeaderManager().add(new Header(&quot;Authorization&quot;,&quot;Bearer
           </BeanShellPreProcessor>
           <hashTree/>
         </hashTree>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Get Products" enabled="true">
-          <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
-            <collectionProp name="Arguments.arguments">
-              <elementProp name="ProductCodes" elementType="HTTPArgument">
-                <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                <stringProp name="Argument.value">${Productcode}</stringProp>
-                <stringProp name="Argument.metadata">=</stringProp>
-                <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                <stringProp name="Argument.name">ProductCodes</stringProp>
-              </elementProp>
-            </collectionProp>
-          </elementProp>
-          <stringProp name="HTTPSampler.domain"></stringProp>
-          <stringProp name="HTTPSampler.port"></stringProp>
-          <stringProp name="HTTPSampler.protocol"></stringProp>
-          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-          <stringProp name="HTTPSampler.path">/${VersionNumber}/Products/Get</stringProp>
-          <stringProp name="HTTPSampler.method">GET</stringProp>
-          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-          <stringProp name="HTTPSampler.response_timeout"></stringProp>
-        </HTTPSamplerProxy>
-        <hashTree>
-          <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSV Data Set Config" enabled="true">
-            <stringProp name="delimiter">,</stringProp>
-            <stringProp name="fileEncoding"></stringProp>
-            <stringProp name="filename">${SharedDrive}\Productcodes.csv</stringProp>
-            <boolProp name="ignoreFirstLine">false</boolProp>
-            <boolProp name="quotedData">false</boolProp>
-            <boolProp name="recycle">true</boolProp>
-            <stringProp name="shareMode">shareMode.all</stringProp>
-            <boolProp name="stopThread">false</boolProp>
-            <stringProp name="variableNames"></stringProp>
-          </CSVDataSet>
-          <hashTree/>
-          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
-            <collectionProp name="Asserion.test_strings">
-              <stringProp name="49586">200</stringProp>
-            </collectionProp>
-            <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
-            <boolProp name="Assertion.assume_success">false</boolProp>
-            <intProp name="Assertion.test_type">8</intProp>
-          </ResponseAssertion>
-          <hashTree/>
-          <BeanShellPreProcessor guiclass="TestBeanGUI" testclass="BeanShellPreProcessor" testname="BeanShell PreProcessor" enabled="true">
-            <stringProp name="filename"></stringProp>
-            <stringProp name="parameters"></stringProp>
-            <boolProp name="resetInterpreter">false</boolProp>
-            <stringProp name="script">import org.apache.jmeter.protocol.http.control.Header;
-
-sampler.getHeaderManager().removeHeaderNamed(&quot;Authorization&quot;);
-sampler.getHeaderManager().add(new Header(&quot;Authorization&quot;,&quot;Bearer &quot; + vars.get(&quot;authToken&quot;)));</stringProp>
-          </BeanShellPreProcessor>
-          <hashTree/>
-        </hashTree>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GetProductsAsyncFor100ProductCodes" enabled="true">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GetProductsAsyncFor100ProductCodes" enabled="false">
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
             <collectionProp name="Arguments.arguments">
               <elementProp name="ProductCodes" elementType="HTTPArgument">
@@ -4028,7 +3969,7 @@ sampler.getHeaderManager().add(new Header(&quot;Authorization&quot;,&quot;Bearer
           </BeanShellPreProcessor>
           <hashTree/>
         </hashTree>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GetLiteProductCoreAsync" enabled="true">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GetLiteProductCoreAsync" enabled="false">
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
             <collectionProp name="Arguments.arguments">
               <elementProp name="ProductCodes" elementType="HTTPArgument">
@@ -4094,7 +4035,7 @@ sampler.getHeaderManager().add(new Header(&quot;Authorization&quot;,&quot;Bearer
           </BeanShellPreProcessor>
           <hashTree/>
         </hashTree>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Get Single Product" enabled="true">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Get Single Product" enabled="false">
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
             <collectionProp name="Arguments.arguments">
               <elementProp name="ProductCode" elementType="HTTPArgument">
@@ -4160,7 +4101,7 @@ sampler.getHeaderManager().add(new Header(&quot;Authorization&quot;,&quot;Bearer
           </BeanShellPreProcessor>
           <hashTree/>
         </hashTree>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GetInventoryStatusAsync" enabled="true">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GetInventoryStatusAsync" enabled="false">
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
             <collectionProp name="Arguments.arguments">
               <elementProp name="ProductCode" elementType="HTTPArgument">
@@ -4226,7 +4167,7 @@ sampler.getHeaderManager().add(new Header(&quot;Authorization&quot;,&quot;Bearer
           </BeanShellPreProcessor>
           <hashTree/>
         </hashTree>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GetInventoryStatus" enabled="true">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GetInventoryStatus" enabled="false">
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
             <collectionProp name="Arguments.arguments">
               <elementProp name="ProductCode" elementType="HTTPArgument">
@@ -4292,7 +4233,7 @@ sampler.getHeaderManager().add(new Header(&quot;Authorization&quot;,&quot;Bearer
           </BeanShellPreProcessor>
           <hashTree/>
         </hashTree>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GetRealTimeInventoryAsync" enabled="true">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GetRealTimeInventoryAsync" enabled="false">
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
             <collectionProp name="Arguments.arguments">
               <elementProp name="ProductCode" elementType="HTTPArgument">
@@ -4358,7 +4299,7 @@ sampler.getHeaderManager().add(new Header(&quot;Authorization&quot;,&quot;Bearer
           </BeanShellPreProcessor>
           <hashTree/>
         </hashTree>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GetProductAccessories" enabled="true">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GetProductAccessories" enabled="false">
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
             <collectionProp name="Arguments.arguments">
               <elementProp name="ProductCode" elementType="HTTPArgument">
@@ -4445,7 +4386,7 @@ sampler.getHeaderManager().add(new Header(&quot;Authorization&quot;,&quot;Bearer
           </BeanShellPreProcessor>
           <hashTree/>
         </hashTree>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GetRecommendedWarrantiesAndServiceAsync" enabled="true">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GetRecommendedWarrantiesAndServiceAsync" enabled="false">
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
             <collectionProp name="Arguments.arguments">
               <elementProp name="ProductCode" elementType="HTTPArgument">
@@ -4525,7 +4466,7 @@ sampler.getHeaderManager().add(new Header(&quot;Authorization&quot;,&quot;Bearer
           </BeanShellPreProcessor>
           <hashTree/>
         </hashTree>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GetProductWarranties" enabled="true">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GetProductWarranties" enabled="false">
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
             <collectionProp name="Arguments.arguments">
               <elementProp name="ProductCode" elementType="HTTPArgument">
@@ -4612,7 +4553,7 @@ sampler.getHeaderManager().add(new Header(&quot;Authorization&quot;,&quot;Bearer
           </BeanShellPreProcessor>
           <hashTree/>
         </hashTree>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GetProductServices" enabled="true">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GetProductServices" enabled="false">
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
             <collectionProp name="Arguments.arguments">
               <elementProp name="ProductCode" elementType="HTTPArgument">
@@ -4699,7 +4640,7 @@ sampler.getHeaderManager().add(new Header(&quot;Authorization&quot;,&quot;Bearer
           </BeanShellPreProcessor>
           <hashTree/>
         </hashTree>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GetMobileCarrierProduct" enabled="true">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GetMobileCarrierProduct" enabled="false">
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
             <collectionProp name="Arguments.arguments">
               <elementProp name="ProductCodes" elementType="HTTPArgument">
@@ -4765,7 +4706,7 @@ sampler.getHeaderManager().add(new Header(&quot;Authorization&quot;,&quot;Bearer
           </BeanShellPreProcessor>
           <hashTree/>
         </hashTree>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Get Rich media provider" enabled="true">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Get Rich media provider" enabled="false">
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
             <collectionProp name="Arguments.arguments">
               <elementProp name="ManufactureCode" elementType="HTTPArgument">
@@ -4831,7 +4772,7 @@ sampler.getHeaderManager().add(new Header(&quot;Authorization&quot;,&quot;Bearer
           </BeanShellPreProcessor>
           <hashTree/>
         </hashTree>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GetProductSalesRanks" enabled="true">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GetProductSalesRanks" enabled="false">
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
             <collectionProp name="Arguments.arguments">
               <elementProp name="ProductCodes" elementType="HTTPArgument">
@@ -4897,7 +4838,7 @@ sampler.getHeaderManager().add(new Header(&quot;Authorization&quot;,&quot;Bearer
           </BeanShellPreProcessor>
           <hashTree/>
         </hashTree>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Get Bundle Items" enabled="true">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Get Bundle Items" enabled="false">
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
             <collectionProp name="Arguments.arguments">
               <elementProp name="ProductCode" elementType="HTTPArgument">
@@ -4956,73 +4897,7 @@ sampler.getHeaderManager().add(new Header(&quot;Authorization&quot;,&quot;Bearer
           </BeanShellPreProcessor>
           <hashTree/>
         </hashTree>
-        <LoopController guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller Get Bulk 100" enabled="false">
-          <boolProp name="LoopController.continue_forever">true</boolProp>
-          <stringProp name="LoopController.loops">100</stringProp>
-        </LoopController>
-        <hashTree>
-          <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSV Data Set Config" enabled="true">
-            <stringProp name="delimiter">,</stringProp>
-            <stringProp name="fileEncoding"></stringProp>
-            <stringProp name="filename">${SharedDrive}\Productcodes.csv</stringProp>
-            <boolProp name="ignoreFirstLine">true</boolProp>
-            <boolProp name="quotedData">false</boolProp>
-            <boolProp name="recycle">true</boolProp>
-            <stringProp name="shareMode">shareMode.thread</stringProp>
-            <boolProp name="stopThread">false</boolProp>
-            <stringProp name="variableNames">EDC</stringProp>
-          </CSVDataSet>
-          <hashTree/>
-          <BeanShellSampler guiclass="BeanShellSamplerGui" testclass="BeanShellSampler" testname="BeanShell Sampler" enabled="true">
-            <stringProp name="BeanShellSampler.query">// System.out.println(&quot;==============&quot;);
-String EDCs = vars.get(&quot;Bulk100InventoryEDCs&quot;);
-// System.out.println(vars.get(&quot;Bulk100InventoryEDCs&quot;));
-if (EDCs != null)
-	EDCs = EDCs + &quot;,${EDC}&quot;;
-else
-	EDCs = &quot;${EDC}&quot;;
-vars.put(&quot;Bulk100InventoryEDCs&quot;, EDCs);
-// System.out.println(vars.get(&quot;Bulk100InventoryEDCs&quot;));</stringProp>
-            <stringProp name="BeanShellSampler.filename"></stringProp>
-            <stringProp name="BeanShellSampler.parameters"></stringProp>
-            <boolProp name="BeanShellSampler.resetInterpreter">false</boolProp>
-          </BeanShellSampler>
-          <hashTree/>
-        </hashTree>
-        <LoopController guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller Get Bulk 200" enabled="false">
-          <boolProp name="LoopController.continue_forever">true</boolProp>
-          <stringProp name="LoopController.loops">200</stringProp>
-        </LoopController>
-        <hashTree>
-          <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSV Data Set Config" enabled="true">
-            <stringProp name="delimiter">,</stringProp>
-            <stringProp name="fileEncoding"></stringProp>
-            <stringProp name="filename">${SharedDrive}\Productcodes.csv</stringProp>
-            <boolProp name="ignoreFirstLine">true</boolProp>
-            <boolProp name="quotedData">false</boolProp>
-            <boolProp name="recycle">true</boolProp>
-            <stringProp name="shareMode">shareMode.thread</stringProp>
-            <boolProp name="stopThread">false</boolProp>
-            <stringProp name="variableNames">EDC</stringProp>
-          </CSVDataSet>
-          <hashTree/>
-          <BeanShellSampler guiclass="BeanShellSamplerGui" testclass="BeanShellSampler" testname="BeanShell Sampler" enabled="true">
-            <stringProp name="BeanShellSampler.query">// System.out.println(&quot;==============&quot;);
-String EDCs = vars.get(&quot;Bulk200InventoryEDCs&quot;);
-// System.out.println(vars.get(&quot;Bulk100InventoryEDCs&quot;));
-if (EDCs != null)
-	EDCs = EDCs + &quot;,${EDC}&quot;;
-else
-	EDCs = &quot;${EDC}&quot;;
-vars.put(&quot;Bulk200InventoryEDCs&quot;, EDCs);
-// System.out.println(vars.get(&quot;Bulk100InventoryEDCs&quot;));</stringProp>
-            <stringProp name="BeanShellSampler.filename"></stringProp>
-            <stringProp name="BeanShellSampler.parameters"></stringProp>
-            <boolProp name="BeanShellSampler.resetInterpreter">false</boolProp>
-          </BeanShellSampler>
-          <hashTree/>
-        </hashTree>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Get Bulk 100 Inventory Statuses Async" enabled="true">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Get Bulk 100 Inventory Statuses Async" enabled="false">
           <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
             <collectionProp name="Arguments.arguments">
@@ -5084,7 +4959,7 @@ sampler.getHeaderManager().add(new Header(&quot;Authorization&quot;,&quot;Bearer
           </BeanShellPreProcessor>
           <hashTree/>
         </hashTree>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Get Bulk 200 Inventory Statuses Async" enabled="true">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Get Bulk 200 Inventory Statuses Async" enabled="false">
           <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
             <collectionProp name="Arguments.arguments">
@@ -5145,7 +5020,7 @@ sampler.getHeaderManager().add(new Header(&quot;Authorization&quot;,&quot;Bearer
           </BeanShellPreProcessor>
           <hashTree/>
         </hashTree>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Get Bulk 200 Inventory Statuses" enabled="true">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Get Bulk 200 Inventory Statuses" enabled="false">
           <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
             <collectionProp name="Arguments.arguments">
@@ -5206,7 +5081,7 @@ sampler.getHeaderManager().add(new Header(&quot;Authorization&quot;,&quot;Bearer
           </CSVDataSet>
           <hashTree/>
         </hashTree>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GetBulkProductsAsync" enabled="true">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GetBulkProductsAsync" enabled="false">
           <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
             <collectionProp name="Arguments.arguments">
@@ -5267,7 +5142,7 @@ sampler.getHeaderManager().add(new Header(&quot;Authorization&quot;,&quot;Bearer
           </CSVDataSet>
           <hashTree/>
         </hashTree>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GetBulkProductsAsyncFor100Products" enabled="true">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GetBulkProductsAsyncFor100Products" enabled="false">
           <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
             <collectionProp name="Arguments.arguments">
@@ -5328,7 +5203,7 @@ sampler.getHeaderManager().add(new Header(&quot;Authorization&quot;,&quot;Bearer
           </CSVDataSet>
           <hashTree/>
         </hashTree>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GetBulkProducts" enabled="true">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GetBulkProducts" enabled="false">
           <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
             <collectionProp name="Arguments.arguments">
@@ -5389,7 +5264,7 @@ sampler.getHeaderManager().add(new Header(&quot;Authorization&quot;,&quot;Bearer
           </CSVDataSet>
           <hashTree/>
         </hashTree>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Get Bundle items with stock" enabled="true">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Get Bundle items with stock" enabled="false">
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
             <collectionProp name="Arguments.arguments">
               <elementProp name="ProductCode" elementType="HTTPArgument">
@@ -5455,7 +5330,7 @@ sampler.getHeaderManager().add(new Header(&quot;Authorization&quot;,&quot;Bearer
           </BeanShellPreProcessor>
           <hashTree/>
         </hashTree>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Get Product attributes" enabled="true">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Get Product attributes" enabled="false">
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
             <collectionProp name="Arguments.arguments">
               <elementProp name="ProductCode" elementType="HTTPArgument">
@@ -5514,7 +5389,7 @@ sampler.getHeaderManager().add(new Header(&quot;Authorization&quot;,&quot;Bearer
           </BeanShellPreProcessor>
           <hashTree/>
         </hashTree>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GetReplacementProductByProductCodeOrManufacturerPartNumber" enabled="true">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GetReplacementProductByProductCodeOrManufacturerPartNumber" enabled="false">
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
             <collectionProp name="Arguments.arguments">
               <elementProp name="keyword" elementType="HTTPArgument">
@@ -5580,7 +5455,7 @@ sampler.getHeaderManager().add(new Header(&quot;Authorization&quot;,&quot;Bearer
           </BeanShellPreProcessor>
           <hashTree/>
         </hashTree>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GetProductDescription" enabled="true">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GetProductDescription" enabled="false">
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
             <collectionProp name="Arguments.arguments">
               <elementProp name="ProductCode" elementType="HTTPArgument">
