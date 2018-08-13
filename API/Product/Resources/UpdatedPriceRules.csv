@@ -1,0 +1,2 @@
+UpdatedPriceRule
+{"PriceRuleId":12,"BidContractReferenceNumber":123,"BidContractDescription":"Description","BidType":"BidType","BidMarkUp":0.98,"BidCostQtyMin":1,"BidCostQtyMax":10,"UserCreated":"qwe","UserModified":"bearer","DateCreated":"2016/09/13","DateModified":"2016/09/13","IsActive":"true"}
